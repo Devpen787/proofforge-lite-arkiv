@@ -631,7 +631,7 @@ for (const expected of [
   "Chain ID: 60138453102",
   "Chain ID hex: 0xe0087f86e",
   "https://braga.hoodi.arkiv.network/rpc",
-  "https://infurademo.hoodi.arkiv.network/faucet/",
+  "https://braga.hoodi.arkiv.network/faucet/",
   "Approval 1 does not authorize final Network School or Arkiv form submission.",
 ]) {
   if (!walletSetup.includes(expected)) {

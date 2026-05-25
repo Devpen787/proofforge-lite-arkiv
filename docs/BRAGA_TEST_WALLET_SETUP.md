@@ -39,7 +39,7 @@ Use the Arkiv faucet only after Approval 1 allows faucet use. The faucet should
 receive the public burner address only.
 
 ```text
-https://infurademo.hoodi.arkiv.network/faucet/
+https://braga.hoodi.arkiv.network/faucet/
 ```
 
 ## What Approval 1 Needs
