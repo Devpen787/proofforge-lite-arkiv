@@ -28,9 +28,13 @@ Built for the Arkiv ETHNS Web3 Database Builder Challenge.
 
 Official deadline: May 25, 2026 23:59 UTC.
 
+Public repository: https://github.com/Devpen787/proofforge-lite-arkiv
+
+Deployed demo: https://proofforge-lite-arkiv.vercel.app
+
 This README separates live, configured, and roadmap claims. Final public
-submission must replace pending live references with the deployed demo URL,
-real Arkiv entity keys, transaction hashes, owner, creator, and verifier output.
+submission must replace pending live Arkiv references with real entity keys,
+transaction hashes, owner, creator, and verifier output.
 
 ## What It Demonstrates
 
@@ -271,9 +275,8 @@ load `web/index.html`, `web/styles.css`, and `web/app.bundle.js`, and connect to
 Arkiv Braga from the browser with the approved wallet. No server secrets or
 private ProofForge files are required for deployment.
 
-Before final submission, replace this deployment section with the deployed demo
-URL, live Arkiv entity keys, transaction hashes, owner, creator, and verifier
-output.
+Before final submission, replace pending live Arkiv references with entity
+keys, transaction hashes, owner, creator, and verifier output.
 
 Live submission setup:
 
