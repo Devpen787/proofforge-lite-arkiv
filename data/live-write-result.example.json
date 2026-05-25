@@ -1,0 +1,35 @@
+{
+  "proofWorkspaceEntityKey": "0x1111111111111111111111111111111111111111111111111111111111111111",
+  "workItemEntityKey": "0x2222222222222222222222222222222222222222222222222222222222222222",
+  "workItemEntityKeys": [
+    "0x2222222222222222222222222222222222222222222222222222222222222222",
+    "0x5555555555555555555555555555555555555555555555555555555555555555",
+    "0x6666666666666666666666666666666666666666666666666666666666666666"
+  ],
+  "workItemCountWritten": 3,
+  "proofPacketEntityKey": "0x3333333333333333333333333333333333333333333333333333333333333333",
+  "reviewEventEntityKey": "0x4444444444444444444444444444444444444444444444444444444444444444",
+  "txHashes": [
+    "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "0xcccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  ],
+  "owner": "0x0000000000000000000000000000000000000001",
+  "creator": "0x0000000000000000000000000000000000000001",
+  "metadataEvidence": {
+    "ownerSource": "arkiv_query:reviewEventsByWorkItem:$owner",
+    "ownerEntityKey": "0x4444444444444444444444444444444444444444444444444444444444444444",
+    "creatorSource": "arkiv_query:reviewEventsByWorkItem:$creator",
+    "creatorEntityKey": "0x4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "queriedAt": "2026-05-24T13:00:00.000Z",
+  "queryEvidence": {
+    "workItemsByProjectCount": 3,
+    "workItemsByStatusCount": 1,
+    "byStatusCount": 1,
+    "bySourceCount": 1,
+    "recentCount": 1,
+    "reviewEventsByWorkspaceCount": 1,
+    "reviewEventsByWorkItemCount": 1
+  }
+}

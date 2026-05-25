@@ -1,0 +1,116 @@
+import fs from "node:fs";
+
+const root = new URL("..", import.meta.url);
+const html = fs.readFileSync(new URL("web/index.html", root), "utf8");
+const css = fs.readFileSync(new URL("web/styles.css", root), "utf8");
+const bundle = fs.readFileSync(new URL("web/app.bundle.js", root), "utf8");
+const packageJson = JSON.parse(fs.readFileSync(new URL("package.json", root), "utf8"));
+const failures = [];
+
+function fail(message) {
+  failures.push(message);
+}
+
+for (const [relativePath, text] of [
+  ["web/index.html", html],
+  ["web/styles.css", css],
+  ["web/app.bundle.js", bundle],
+]) {
+  if (text.length < 100) {
+    fail(`${relativePath} is unexpectedly small`);
+  }
+}
+
+for (const [relativePath, text] of [
+  ["web/index.html", html],
+  ["web/styles.css", css],
+]) {
+  for (const forbidden of [
+    [".", "proofforge-private"].join(""),
+    ["/", "Users", "/"].join(""),
+    "localhost",
+    "http://127.0.0.1",
+  ]) {
+    if (text.includes(forbidden)) {
+      fail(`${relativePath} contains non-public deploy marker: ${forbidden}`);
+    }
+  }
+}
+
+for (const expected of [
+  "ProofForge Lite",
+  "Powered by Arkiv",
+  "Private agent work. Public Arkiv proof trail.",
+  "Connect Braga wallet",
+  "Build proof packet",
+  "Inspect Arkiv schema",
+  "Query Braga",
+  "No wallet action, no Arkiv query, no Arkiv write, no submission.",
+  "Blocked: live queries before approval",
+  "Work",
+  "Preflight",
+  "Proof Packet",
+  "Arkiv Memory",
+  "Verify",
+  "Write Arkiv entities",
+  "Copy live result",
+]) {
+  if (!html.includes(expected)) {
+    fail(`web/index.html missing demo phrase: ${expected}`);
+  }
+}
+
+for (const expected of [
+  'href="./styles.css"',
+  'src="./app.bundle.js"',
+  'aria-label="ProofForge Lite flow"',
+  'aria-live="polite"',
+]) {
+  if (!html.includes(expected)) {
+    fail(`web/index.html missing static/accessibility marker: ${expected}`);
+  }
+}
+
+for (const expected of [
+  "grid-template-columns: repeat(auto-fit, minmax(108px, 1fr))",
+  "overflow-x: visible",
+  "word-break: break-word",
+  "@media (max-width: 860px)",
+]) {
+  if (!css.includes(expected)) {
+    fail(`web/styles.css missing mobile-safety marker: ${expected}`);
+  }
+}
+
+for (const expected of [
+  "publishProofMemory",
+  "createBrowserWalletClient",
+  "queryWorkItemsByProject",
+  "queryWorkItemsByStatus",
+  "queryProofPacketsByStatus",
+  "queryProofPacketsBySourceType",
+  "queryRecentProofPackets",
+  "queryReviewEventsByProofWorkspace",
+  "queryReviewEventsByWorkItem",
+  "safeJsonStringify",
+  "latestLiveWriteResult",
+  "PROJECT_ATTRIBUTE",
+]) {
+  if (!bundle.includes(expected)) {
+    fail(`web/app.bundle.js missing live-flow marker: ${expected}`);
+  }
+}
+
+if (packageJson.dependencies?.["@arkiv-network/sdk"] !== "0.6.8") {
+  fail("package.json must pin @arkiv-network/sdk to 0.6.8");
+}
+
+if (failures.length > 0) {
+  console.error("Web smoke validation failed:");
+  for (const failure of failures) {
+    console.error(`- ${failure}`);
+  }
+  process.exit(1);
+}
+
+console.log("Web smoke validation passed");

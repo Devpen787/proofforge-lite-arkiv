@@ -1,0 +1,53 @@
+[
+  {
+    "workItemId": "work_arkiv_ethns_submission",
+    "title": "Arkiv ETHNS Web3 Database Builder Challenge",
+    "source": "Network School / Arkiv",
+    "sourceUrl": "https://ns.com/earn/web3-database-builder-challenge",
+    "sourceType": "hackathon_challenge",
+    "status": "ready_for_submission",
+    "priority": 1,
+    "acceptanceOwner": "Arkiv / Network School reviewers",
+    "valuePath": "USDC prize claim if accepted externally",
+    "proofNeeded": "Public repo, working Braga demo, README setup, live Arkiv entities, project-scoped queries, and 2-3 minute demo video.",
+    "publicBoundary": "Only challenge requirements, public-safe proof summaries, artifact hashes, and Arkiv refs are public.",
+    "riskScore": 18,
+    "evidenceCount": 7,
+    "createdAtMs": 1779627000000,
+    "deadlineMs": 1779753540000
+  },
+  {
+    "workItemId": "work_protocol_bounty_sample",
+    "title": "Protocol bounty proof pack",
+    "source": "Public bounty board sample",
+    "sourceUrl": "sample://protocol-bounty",
+    "sourceType": "bounty",
+    "status": "queued",
+    "priority": 2,
+    "acceptanceOwner": "Protocol maintainer",
+    "valuePath": "External/manual payout if accepted",
+    "proofNeeded": "Source requirements, bounded proof run, verifier result, redacted maintainer packet.",
+    "publicBoundary": "Sample only. No private bounty intelligence or payout details.",
+    "riskScore": 32,
+    "evidenceCount": 3,
+    "createdAtMs": 1779627060000,
+    "deadlineMs": 1779840000000
+  },
+  {
+    "workItemId": "work_grant_review_sample",
+    "title": "Grant application proof review",
+    "source": "Foundation grant sample",
+    "sourceUrl": "sample://foundation-grant",
+    "sourceType": "grant",
+    "status": "queued",
+    "priority": 3,
+    "acceptanceOwner": "Foundation reviewer",
+    "valuePath": "Credit, access, or grant decision if accepted",
+    "proofNeeded": "Eligibility checks, public-safe claim review, evidence hash list, reviewer decision event.",
+    "publicBoundary": "Sample only. Draft applications and private notes stay outside Arkiv.",
+    "riskScore": 41,
+    "evidenceCount": 2,
+    "createdAtMs": 1779627120000,
+    "deadlineMs": 1779926400000
+  }
+]

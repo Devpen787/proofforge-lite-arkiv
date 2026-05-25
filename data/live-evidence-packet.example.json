@@ -1,0 +1,19 @@
+{
+  "capturedAt": "2026-05-24T13:00:00.000Z",
+  "publicRepoUrl": "PENDING_PUBLIC_REPO_URL",
+  "deployedDemoUrl": "PENDING_DEPLOYED_DEMO_URL",
+  "demoVideoUrl": "PENDING_DEMO_VIDEO_URL",
+  "approvedWalletAddress": "0x0000000000000000000000000000000000000001",
+  "bragaExplorerBaseUrl": "https://explorer.braga.hoodi.arkiv.network",
+  "liveWriteResultPath": "data/live-write-result.example.json",
+  "liveReceiptPath": "out/live-proof-memory-receipt.json",
+  "verifierCommand": "RECEIPT_PATH=out/live-proof-memory-receipt.json npm run verify",
+  "verifierStatus": "passed",
+  "screenshotPaths": [
+    "docs/screenshots/ui-desktop-bundled.png",
+    "docs/screenshots/ui-mobile-bundled.png"
+  ],
+  "notes": [
+    "Example packet only. Replace every pending URL after Approval 1 live capture."
+  ]
+}

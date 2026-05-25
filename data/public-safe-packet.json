@@ -1,0 +1,35 @@
+{
+  "packetId": "public_packet_arkiv_ethns_submission",
+  "workItemId": "work_arkiv_ethns_submission",
+  "mission": "Prepare ProofForge Lite Arkiv submission",
+  "whatWasProven": "A bounded proof-node workflow converted a private hackathon build process into a public-safe proof packet for the Arkiv ETHNS challenge.",
+  "evidenceSummary": "Requirements mapped, public/private boundary checked, Arkiv schema verified, demo path prepared, and release candidate built locally. Live Braga writes remain approval-gated.",
+  "artifactHashes": [
+    "sha256:9f2a6b1a0b8c1f4a3a7d6e1b0c2d4e5f6a7b8c9d0e1f2031425364758697a8b9",
+    "sha256:6c3e5f9268a2e3f4a31e6f7c7c9b1e3b90820d84d84dbed5aa2d5c03631a4a8d"
+  ],
+  "sourceUrl": "https://ns.com/earn/web3-database-builder-challenge",
+  "sourceType": "hackathon_challenge",
+  "status": "ready_for_submission",
+  "reviewDecision": "ready_for_submission",
+  "riskScore": 18,
+  "evidenceCount": 7,
+  "createdAtMs": 1779627000000,
+  "acceptedAtMs": 0,
+  "publicFields": [
+    "challenge source",
+    "requirements checklist",
+    "artifact hashes",
+    "proof status",
+    "risk and evidence counts",
+    "Arkiv entity references after live write"
+  ],
+  "privateFieldsExcluded": [
+    "private opportunity notes",
+    "payout setup context",
+    "drafts",
+    "approval history",
+    "local execution transcripts",
+    "wallet secrets"
+  ]
+}

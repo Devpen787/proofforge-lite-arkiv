@@ -1,0 +1,33 @@
+{
+  "name": "proofforge-lite-arkiv",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve-web.mjs",
+    "build:web": "node scripts/build-web.mjs",
+    "smoke:web": "node scripts/validate-web-smoke.mjs",
+    "test:demo-path": "node scripts/validate-demo-clickthrough.mjs",
+    "build:receipt": "node scripts/build-receipt.mjs",
+    "finalize:receipt": "node scripts/finalize-live-receipt.mjs",
+    "live-result:check": "node scripts/validate-live-write-result.mjs",
+    "live-result:check:example": "ALLOW_EXAMPLE_LIVE_RESULT=1 node scripts/validate-live-write-result.mjs",
+    "live:evidence:packet:check": "node scripts/validate-live-evidence-packet.mjs",
+    "verify": "node scripts/verify-receipt.mjs",
+    "verify:live-example": "npm run build:receipt && npm run finalize:receipt && RECEIPT_PATH=out/live-proof-memory-receipt.json npm run verify",
+    "test:verifier": "node scripts/test-verifier-negative-cases.mjs",
+    "verify:adapter": "node --experimental-strip-types scripts/verify-arkiv-adapter.mjs",
+    "test:write-plan": "node --experimental-strip-types scripts/test-arkiv-write-plan.mjs",
+    "validate:package": "node scripts/validate-submission-package.mjs",
+    "requirements:check": "node scripts/validate-challenge-requirements.mjs",
+    "privacy:check": "node scripts/validate-public-privacy-boundary.mjs",
+    "check": "npm run build:receipt && npm run verify && npm run verify:adapter && npm run test:write-plan && npm run live-result:check:example && npm run verify:live-example && npm run live:evidence:packet:check && npm run test:verifier && npm run build:web && npm run smoke:web && npm run test:demo-path && npm run requirements:check && npm run validate:package && npm run privacy:check"
+  },
+  "dependencies": {
+    "@arkiv-network/sdk": "0.6.8"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.4",
+    "playwright": "^1.60.0"
+  }
+}
