@@ -524,7 +524,7 @@ for (const expected of [
   "## Tech Stack",
   "## Setup Notes",
   "## Arkiv Integration",
-  "Official deadline: May 25, 2026 23:59 UTC.",
+  "Official deadline: May 27, 2026 23:59 UTC.",
   "This README separates live, configured, and roadmap claims.",
   "Final public submission must replace pending live Arkiv references",
   "deployed Braga write as the source of truth",

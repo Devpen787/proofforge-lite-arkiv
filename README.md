@@ -26,7 +26,7 @@ Hybrid: AI + Privacy.
 
 Built for the Arkiv ETHNS Web3 Database Builder Challenge.
 
-Official deadline: May 25, 2026 23:59 UTC.
+Official deadline: May 27, 2026 23:59 UTC.
 
 Public repository: https://github.com/Devpen787/proofforge-lite-arkiv
 
