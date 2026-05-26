@@ -87,15 +87,15 @@ async function runViewport(page, viewport, label) {
   );
   const proofPathText = ((await page.locator(".proof-path").first().textContent()) ?? "").replace(/\s+/g, " ");
   assert(
-    proofPathText.includes("01Work") &&
-      proofPathText.includes("02Preflight") &&
-      proofPathText.includes("Proof node") &&
-      proofPathText.includes("Arkiv memory") &&
+      proofPathText.includes("01 Work") &&
+      proofPathText.includes("02 Preflight") &&
+      proofPathText.includes("Proof Node") &&
+      proofPathText.includes("Arkiv Memory") &&
       proofPathText.includes("Verify"),
     `${label} proof path strip is missing the agent-ops proof story`,
   );
-  const protocolRowCount = await page.locator(".protocol-panel .protocol-row").count();
-  assert(protocolRowCount === 5, `${label} expected 5 protocol rows, found ${protocolRowCount}`);
+  const proofPathButtonCount = await page.locator(".proof-path .step-tab").count();
+  assert(proofPathButtonCount === 5, `${label} expected 5 guided proof path buttons, found ${proofPathButtonCount}`);
 
   for (const [step, panel, heading] of [
     ["Work", "work", "Selected mission"],

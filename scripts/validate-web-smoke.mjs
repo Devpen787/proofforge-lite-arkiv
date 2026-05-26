@@ -61,7 +61,7 @@ for (const expected of [
   "Show evidence",
   "Query Braga",
   "Public reads are open. Wallet approval is only required for Braga writes.",
-  "runner passed · verifier passed · packager ready · human approval required",
+  "Proof node: runner passed · verifier passed · packager ready",
   "RECEIPT_PATH=out/live-proof-memory-receipt.json npm run verify",
   "Work",
   "Preflight",
@@ -70,7 +70,7 @@ for (const expected of [
   "Verify",
   "Write Arkiv entities",
   "Copy live result",
-  "6 records · 4 entity types · project=proofforge-lite-arkiv-ethns-2026",
+  "project=proofforge-lite-arkiv-ethns-2026",
   "Six Arkiv records across four entity types",
 ]) {
   if (!html.includes(expected)) {

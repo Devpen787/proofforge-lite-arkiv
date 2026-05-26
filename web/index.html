@@ -63,48 +63,27 @@
         </aside>
       </section>
 
-      <section class="proof-path" aria-label="ProofForge Lite protocol strip">
-        <span><small>01</small>Work</span>
-        <span><small>02</small>Preflight</span>
-        <span><small>03</small>Proof node</span>
-        <span><small>04</small>Arkiv memory</span>
-        <span><small>05</small>Verify</span>
-      </section>
-
-      <section class="protocol-panel" aria-label="Live ProofForge Lite system">
-        <div class="protocol-row">
-          <p class="label">Mission</p>
-          <strong>Arkiv ETHNS Web3 Database Builder Challenge</strong>
-          <span>Selected work item, public-safe only.</span>
-        </div>
-        <div class="protocol-row">
-          <p class="label">Run state</p>
-          <strong>Ready for Braga proof write</strong>
-          <span>No final submission or prize claim has been made.</span>
-        </div>
-        <div class="protocol-row">
-          <p class="label">Proof node</p>
-          <strong>runner passed · verifier passed · packager ready · human approval required</strong>
-          <span>Private notes, secrets, payout setup, and final submission stay blocked.</span>
-        </div>
-        <div class="protocol-row">
-          <p class="label">Arkiv memory</p>
-          <strong>6 records · 4 entity types · project=proofforge-lite-arkiv-ethns-2026</strong>
-          <span>Wallet-owned public proof memory on Braga.</span>
-        </div>
-        <div class="protocol-row">
-          <p class="label">Verify</p>
-          <strong>owner/creator · relationships · tx hashes · query counts</strong>
-          <span>Reviewer reads project-scoped proof without workspace access.</span>
-        </div>
-      </section>
-
-      <nav class="step-tabs" aria-label="ProofForge Lite flow">
-        <button class="step-tab active" data-step="work" type="button">Work</button>
-        <button class="step-tab" data-step="preflight" type="button">Preflight</button>
-        <button class="step-tab" data-step="packet" type="button">Proof Node</button>
-        <button class="step-tab" data-step="memory" type="button">Arkiv Memory</button>
-        <button class="step-tab" data-step="verify" type="button">Verify</button>
+      <nav class="proof-path step-tabs" aria-label="ProofForge Lite flow">
+        <button class="step-tab active" data-step="work" type="button" aria-label="Work">
+          <small>01</small>
+          Work
+        </button>
+        <button class="step-tab" data-step="preflight" type="button" aria-label="Preflight">
+          <small>02</small>
+          Preflight
+        </button>
+        <button class="step-tab" data-step="packet" type="button" aria-label="Proof Node">
+          <small>03</small>
+          Proof Node
+        </button>
+        <button class="step-tab" data-step="memory" type="button" aria-label="Arkiv Memory">
+          <small>04</small>
+          Arkiv Memory
+        </button>
+        <button class="step-tab" data-step="verify" type="button" aria-label="Verify">
+          <small>05</small>
+          Verify
+        </button>
       </nav>
 
       <section class="step-panel active" data-step="work">
@@ -132,6 +111,7 @@
             <div class="boundary-grid">
               <span>Allowed: local checks</span>
               <span>Allowed: public-safe packet</span>
+              <span>Proof node: runner passed · verifier passed · packager ready</span>
               <span>Blocked: final submission</span>
               <span>Blocked: wallet writes before approval</span>
             </div>
@@ -179,6 +159,8 @@
             <p class="label">Project-scoped queries</p>
             <h3>Reviewer reads proof history without workspace access.</h3>
             <div class="packet-list">
+              <span>project=proofforge-lite-arkiv-ethns-2026</span>
+              <span>wallet-owned public proof memory on Braga</span>
               <span>work items by status</span>
               <span>packets by status</span>
               <span>packets by source type</span>
