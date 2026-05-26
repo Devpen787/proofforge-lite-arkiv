@@ -28,8 +28,9 @@
           <p class="label">Public proof memory</p>
           <h2>Private agent work. Public Arkiv proof.</h2>
           <p>
-            A focused Arkiv-native workflow where private work becomes
-            wallet-owned, queryable proof without exposing the private workspace.
+            ProofForge Lite turns private work into a redacted Proof Pack.
+            Arkiv is the public proof ledger: wallet-owned, attributed,
+            queryable, and safe to review without exposing the workspace.
           </p>
           <div class="actions">
             <button id="runProofPath" class="button primary" type="button">
@@ -103,15 +104,16 @@
             <p class="label">Proof preflight</p>
             <h3>Run only if the proof target is bounded.</h3>
             <div class="fact-grid">
-              <span><small>Acceptance</small><strong>Arkiv reviewers</strong></span>
+              <span><small>Acceptance owner</small><strong>Arkiv reviewers</strong></span>
               <span><small>Required proof</small><strong>repo + Braga demo + live refs</strong></span>
-              <span><small>Approval gate</small><strong>writes and submission are explicit</strong></span>
-              <span><small>Boundary</small><strong>no private notes or secrets</strong></span>
+              <span><small>Human approval gate</small><strong>writes and submission are explicit</strong></span>
+              <span><small>Privacy boundary</small><strong>no private notes or secrets</strong></span>
             </div>
             <div class="boundary-grid">
               <span>Allowed: local checks</span>
               <span>Allowed: public-safe packet</span>
               <span>Proof node: runner passed · verifier passed · packager ready</span>
+              <span>Human approval stays in front of public writes and submissions</span>
               <span>Blocked: final submission</span>
               <span>Blocked: wallet writes before approval</span>
             </div>
@@ -123,9 +125,10 @@
         <div class="focused-surface">
           <article class="panel">
             <p class="label">Proof node</p>
-            <h3>Runner to verifier to public-safe packet.</h3>
+            <h3>Runner to verifier to redacted public-safe Proof Pack.</h3>
             <div id="proofRunTrace" class="run-trace" aria-label="Proof node lifecycle"></div>
             <div class="packet-list">
+              <span>Redacted Proof Pack prepared</span>
               <span>Challenge requirements checked</span>
               <span>Artifact hashes included</span>
               <span>Risk and evidence counts included</span>

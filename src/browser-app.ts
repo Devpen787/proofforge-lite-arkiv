@@ -1,4 +1,5 @@
 import packet from "../data/public-safe-packet.json";
+import liveWriteResult from "../data/live-write-result.json";
 import workItems from "../data/seed-work-items.json";
 
 import {
@@ -331,6 +332,14 @@ function renderEvidenceSummary(value: unknown, title: string) {
       summaryCard("Packet status", `${Number(result.byStatusCount ?? 0)} record`),
       summaryCard("Source type", `${Number(result.bySourceCount ?? 0)} record`),
       summaryCard("Time range", `${Number(result.recentCount ?? 0)} record`),
+      summaryCard(
+        "Workspace relation",
+        `${Number(result.reviewEventsByWorkspaceCount ?? 0)} record`,
+      ),
+      summaryCard(
+        "Work-item relation",
+        `${Number(result.reviewEventsByWorkItemCount ?? 0)} record`,
+      ),
       summaryCard("Reviewer view", "project-scoped public proof", "accent"),
     ].join("");
     return;
@@ -588,12 +597,29 @@ queryArkiv.addEventListener("click", async () => {
   try {
     setState("Querying public Braga", "Reading public Arkiv entities with project-scoped filters. Wallet is not required for reads.");
     const publicClient = createArkivPublicClient();
-    const [workByProject, workByStatus, byStatus, bySource, recent] = await Promise.all([
+    const liveRefs = liveWriteResult as {
+      proofWorkspaceEntityKey?: string;
+      workItemEntityKey?: string;
+    };
+    const [
+      workByProject,
+      workByStatus,
+      byStatus,
+      bySource,
+      recent,
+      reviewEventsByWorkspace,
+      reviewEventsByWorkItem,
+    ] = await Promise.all([
       queryWorkItemsByProject(publicClient),
       queryWorkItemsByStatus(publicClient, selectedWorkItem.status),
       queryProofPacketsByStatus(publicClient, packet.status),
       queryProofPacketsBySourceType(publicClient, packet.sourceType),
       queryRecentProofPackets(publicClient, packet.createdAtMs - 1),
+      queryReviewEventsByProofWorkspace(
+        publicClient,
+        liveRefs.proofWorkspaceEntityKey ?? "",
+      ),
+      queryReviewEventsByWorkItem(publicClient, liveRefs.workItemEntityKey ?? ""),
     ]);
     setState("Arkiv query complete", "Public query results include the project attribute on every path.");
     setReceiptView(
@@ -603,11 +629,15 @@ queryArkiv.addEventListener("click", async () => {
         byStatusCount: extractResultCount(byStatus),
         bySourceCount: extractResultCount(bySource),
         recentCount: extractResultCount(recent),
+        reviewEventsByWorkspaceCount: extractResultCount(reviewEventsByWorkspace),
+        reviewEventsByWorkItemCount: extractResultCount(reviewEventsByWorkItem),
         workByProject,
         workByStatus,
         byStatus,
         bySource,
         recent,
+        reviewEventsByWorkspace,
+        reviewEventsByWorkItem,
       },
       "Arkiv query result",
     );

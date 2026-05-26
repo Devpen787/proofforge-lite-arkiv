@@ -9902,6 +9902,43 @@ var public_safe_packet_default = {
   ]
 };
 
+// data/live-write-result.json
+var live_write_result_default = {
+  proofWorkspaceEntityKey: "0x69dd60524d65b7b9594d9c90e160f9ff1e23127b0d06111117f2c103b5e03c1e",
+  workItemEntityKey: "0x8974e4de365f0529596e6c7acd851dea1c15d6a74d5f4ec5ed1104e6873e96cd",
+  workItemEntityKeys: [
+    "0x8974e4de365f0529596e6c7acd851dea1c15d6a74d5f4ec5ed1104e6873e96cd",
+    "0x30575e193ff05f6927e7775b061de1ed8e6bc66bc2b0a9d4497e441441c8ed44",
+    "0x433033b0d76fe1af1e09bc5dc6096332ef5c0d0b37b73b6666fce686a68fce3b"
+  ],
+  workItemCountWritten: 3,
+  proofPacketEntityKey: "0xa0bbbf1723fd8987dbc95b48aa98dcd63dd29b9fd9f60471b55e73e90f417277",
+  reviewEventEntityKey: "0xcca5f7d3aaf4e7d0f67e0bc7a2be8651d64fcae2f146a0a41ea3114cc26d0467",
+  txHashes: [
+    "0x1a8e10b520fb145e36c9eecb53dcf21c58ce93e4f7eb1a2738712bf391f7fbbd",
+    "0xf81ca174f4b6dff8ab93302e454b553714f851f4890a73d2316c329e771781e7",
+    "0x47a75d103dd940ccded6a24771f0ecc09c8da6e876274aebe15f0a5235bf249b"
+  ],
+  owner: "0xdea670f17da2ea7b1a9fb037dcf14231db37534e",
+  creator: "0xdea670f17da2ea7b1a9fb037dcf14231db37534e",
+  metadataEvidence: {
+    ownerSource: "arkiv_query:reviewEventsByWorkItem:$owner",
+    ownerEntityKey: "0xcca5f7d3aaf4e7d0f67e0bc7a2be8651d64fcae2f146a0a41ea3114cc26d0467",
+    creatorSource: "arkiv_query:reviewEventsByWorkItem:$creator",
+    creatorEntityKey: "0xcca5f7d3aaf4e7d0f67e0bc7a2be8651d64fcae2f146a0a41ea3114cc26d0467"
+  },
+  queriedAt: "2026-05-26T14:02:22.691Z",
+  queryEvidence: {
+    workItemsByProjectCount: 3,
+    workItemsByStatusCount: 1,
+    byStatusCount: 1,
+    bySourceCount: 1,
+    recentCount: 1,
+    reviewEventsByWorkspaceCount: 1,
+    reviewEventsByWorkItemCount: 1
+  }
+};
+
 // data/seed-work-items.json
 var seed_work_items_default = [
   {
@@ -20122,6 +20159,14 @@ function renderEvidenceSummary(value, title) {
       summaryCard("Packet status", `${Number(result.byStatusCount ?? 0)} record`),
       summaryCard("Source type", `${Number(result.bySourceCount ?? 0)} record`),
       summaryCard("Time range", `${Number(result.recentCount ?? 0)} record`),
+      summaryCard(
+        "Workspace relation",
+        `${Number(result.reviewEventsByWorkspaceCount ?? 0)} record`
+      ),
+      summaryCard(
+        "Work-item relation",
+        `${Number(result.reviewEventsByWorkItemCount ?? 0)} record`
+      ),
       summaryCard("Reviewer view", "project-scoped public proof", "accent")
     ].join("");
     return;
@@ -20342,12 +20387,26 @@ queryArkiv.addEventListener("click", async () => {
   try {
     setState("Querying public Braga", "Reading public Arkiv entities with project-scoped filters. Wallet is not required for reads.");
     const publicClient = createArkivPublicClient();
-    const [workByProject, workByStatus, byStatus, bySource, recent] = await Promise.all([
+    const liveRefs = live_write_result_default;
+    const [
+      workByProject,
+      workByStatus,
+      byStatus,
+      bySource,
+      recent,
+      reviewEventsByWorkspace,
+      reviewEventsByWorkItem
+    ] = await Promise.all([
       queryWorkItemsByProject(publicClient),
       queryWorkItemsByStatus(publicClient, selectedWorkItem.status),
       queryProofPacketsByStatus(publicClient, public_safe_packet_default.status),
       queryProofPacketsBySourceType(publicClient, public_safe_packet_default.sourceType),
-      queryRecentProofPackets(publicClient, public_safe_packet_default.createdAtMs - 1)
+      queryRecentProofPackets(publicClient, public_safe_packet_default.createdAtMs - 1),
+      queryReviewEventsByProofWorkspace(
+        publicClient,
+        liveRefs.proofWorkspaceEntityKey ?? ""
+      ),
+      queryReviewEventsByWorkItem(publicClient, liveRefs.workItemEntityKey ?? "")
     ]);
     setState("Arkiv query complete", "Public query results include the project attribute on every path.");
     setReceiptView(
@@ -20357,11 +20416,15 @@ queryArkiv.addEventListener("click", async () => {
         byStatusCount: extractResultCount(byStatus),
         bySourceCount: extractResultCount(bySource),
         recentCount: extractResultCount(recent),
+        reviewEventsByWorkspaceCount: extractResultCount(reviewEventsByWorkspace),
+        reviewEventsByWorkItemCount: extractResultCount(reviewEventsByWorkItem),
         workByProject,
         workByStatus,
         byStatus,
         bySource,
-        recent
+        recent,
+        reviewEventsByWorkspace,
+        reviewEventsByWorkItem
       },
       "Arkiv query result"
     );
