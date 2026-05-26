@@ -632,11 +632,12 @@ const demoScript2Min = fs.readFileSync(
 for (const expected of [
   "# 2-Minute Screen-Share Demo Script",
   "## Demo Thesis",
-  "Useful agent work is private, but useful proof needs to be public.",
+  "Find useful work. Prove it safely. Get accepted.",
+  "Existing work sources, agent runs, maintainer decisions",
   "## 0:00-0:20 - Context And Promise",
   "## 0:32-0:48 - Preflight",
   "## 1:05-1:30 - Arkiv Memory",
-  "Arkiv is great for this because it is not just storage.",
+  "Arkiv is great for ProofForge because proof has to be public",
   "Keep narration near 285 spoken words.",
 ]) {
   if (!demoScript2Min.includes(expected)) {

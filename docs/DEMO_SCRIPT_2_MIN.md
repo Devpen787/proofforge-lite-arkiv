@@ -17,25 +17,34 @@ drafts.
 
 ## Demo Thesis
 
+ProofForge mission:
+
+```text
+Find useful work. Prove it safely. Get accepted. Track the credit, payout,
+benefit, or public proof state that follows.
+```
+
 Problem:
 
 ```text
-Useful agent work is private, but useful proof needs to be public.
+Existing work sources, agent runs, maintainer decisions, and payout or credit
+states are scattered. Raw agent logs are noisy and often private. Reviewers need
+clean proof, not the whole workspace.
 ```
 
 Why Arkiv:
 
 ```text
-Arkiv gives the public proof layer: wallet-owned records, immutable creator
-attribution, typed attributes, project-scoped queries, relationships, and
-expiration windows.
+Arkiv is the public proof ledger for the redacted Proof Pack: wallet-owned
+records, immutable creator attribution, typed attributes, relationships,
+project-scoped queries, and expiration windows.
 ```
 
 What the demo proves:
 
 ```text
-private work item -> redacted proof packet -> six Arkiv Braga records ->
-project-scoped queries -> deterministic verifier receipt
+source-backed work lead -> mission gate -> redacted Proof Pack ->
+six Arkiv Braga records -> project-scoped queries -> verifier receipt
 ```
 
 ## 0:00-0:20 - Context And Promise
@@ -44,11 +53,11 @@ Move: show the first viewport without clicking.
 
 Say:
 
-> Most useful AI work happens in private: notes, approvals, source checks, and
-> draft decisions. But judges or clients still need proof without seeing that
-> workspace. ProofForge Lite demonstrates the missing layer: Arkiv as public
-> proof memory. In two minutes I’ll show one private work item becoming
-> redacted, wallet-owned, queryable Arkiv records.
+> ProofForge is a contribution layer for useful work across projects, people,
+> and agents. The mission is simple: find useful work, prove it safely, get it
+> accepted, and track the credit or value state that follows. This Lite demo
+> shows why Arkiv matters: it becomes the public proof ledger, without exposing
+> private agent logs or operator notes.
 
 ## 0:20-0:32 - Work
 
@@ -57,8 +66,8 @@ Move: leave `Work` selected and point to the active Arkiv challenge work item.
 Say:
 
 > The active work item is this Arkiv ETHNS challenge. ProofForge Lite keeps a
-> public-safe work queue, so reviewers see source, status, risk, and next
-> action, not private notes.
+> public-safe work queue, so the reviewer sees where the work came from, who can
+> accept it, what proof is needed, and the next action.
 
 ## 0:32-0:48 - Preflight
 
@@ -68,8 +77,8 @@ Say:
 
 > Before anything public happens, the mission gate checks acceptance owner,
 > required proof, privacy boundary, and approval gates. The proof node can run
-> local checks, verify schema and privacy, and package evidence. It cannot leak
-> private notes or write to Arkiv without human approval.
+> local checks, verify schema and privacy, and package evidence. Human approval
+> stays in front of public writes and submissions.
 
 ## 0:48-1:05 - Proof Packet
 
@@ -77,9 +86,10 @@ Move: click `Proof Packet`, then click `Build proof packet`.
 
 Say:
 
-> This creates the redacted case file. It includes challenge requirements,
-> artifact hashes, status, risk, and the runner-verifier-packager trace. The
-> private workspace, secrets, drafts, logs, and account material are excluded.
+> This creates the redacted Proof Pack: the maintainer-safe case file. It
+> includes requirements, artifact hashes, status, risk, and the
+> runner-verifier-packager trace. Private notes, drafts, logs, and account
+> material are excluded.
 
 ## 1:05-1:30 - Arkiv Memory
 
@@ -89,11 +99,11 @@ Move: click `Arkiv Memory`. If the wallet is already connected, click
 
 Say:
 
-> Arkiv is great for this because it is not just storage. It gives us public,
-> wallet-owned, queryable records with owner and creator metadata. ProofForge
-> Lite writes six Braga records across four entity types: workspace, work
-> items, proof packet, and review event. Every entity and query uses the same
-> project attribute, and relationships are linked by Arkiv keys.
+> Arkiv is great for ProofForge because proof has to be public, owned,
+> attributed, and queryable. Here the redacted Proof Pack becomes six Braga
+> records across four entity types: workspace, work items, proof packet, and
+> review event. Every entity and query uses the same project attribute, with
+> relationships linked by Arkiv keys.
 
 ## 1:30-1:50 - Verify
 
@@ -102,10 +112,10 @@ Show the summary cards, not raw JSON.
 
 Say:
 
-> Reviewers can query the proof history by project, status, source type, time
+> Now a reviewer can query proof history by project, status, source type, time
 > range, workspace relationship, and work-item relationship. The receipt checks
-> entity keys, transaction hashes, owner, creator, relationships, and the
-> public-private boundary.
+> entity keys, transactions, owner, creator, relationships, and the privacy
+> boundary.
 
 ## 1:50-2:00 - Close
 
@@ -114,9 +124,9 @@ view.
 
 Say:
 
-> Without Arkiv, this would be either a private log or an unsafe public dump.
-> With Arkiv, it becomes owned, attributed, queryable proof memory for future
-> bounties, grants, and open-source work.
+> That is the ProofForge loop: useful work becomes accepted proof, and Arkiv
+> makes the public proof state reusable across future bounties, grants, and
+> open-source work.
 
 ## Timing Rules
 
