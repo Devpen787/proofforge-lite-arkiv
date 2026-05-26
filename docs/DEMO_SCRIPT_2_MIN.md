@@ -47,6 +47,18 @@ source-backed work lead -> mission gate -> redacted Proof Pack ->
 six Arkiv Braga records -> project-scoped queries -> verifier receipt
 ```
 
+Requirements covered in the recording:
+
+- Theme: AI + Privacy hybrid.
+- Public repo and setup: linked from the README.
+- Working demo: deployed app on Arkiv Braga testnet.
+- Data model: six records across four entity types.
+- Project scope: `project=proofforge-lite-arkiv-ethns-2026` on every entity and
+  query.
+- Ownership: Braga wallet writes expose `$owner` and `$creator` metadata.
+- Submission admin fields: team, GitHub handle, wallet address, and contact
+  fields belong in the form, not the screen-share narration.
+
 ## 0:00-0:20 - Context And Promise
 
 Move: show the first viewport without clicking.
@@ -56,8 +68,9 @@ Say:
 > ProofForge is a contribution layer for useful work across projects, people,
 > and agents. The mission is simple: find useful work, prove it safely, get it
 > accepted, and track the credit or value state that follows. This Lite demo
-> shows why Arkiv matters: it becomes the public proof ledger, without exposing
-> private agent logs or operator notes.
+> is an AI plus Privacy submission. It shows why Arkiv matters: Arkiv becomes
+> the public proof ledger, without exposing private agent logs or operator
+> notes.
 
 ## 0:20-0:32 - Work
 
@@ -102,8 +115,9 @@ Say:
 > Arkiv is great for ProofForge because proof has to be public, owned,
 > attributed, and queryable. Here the redacted Proof Pack becomes six Braga
 > records across four entity types: workspace, work items, proof packet, and
-> review event. Every entity and query uses the same project attribute, with
-> relationships linked by Arkiv keys.
+> review event. Every entity and query uses
+> project equals proofforge-lite-arkiv-ethns-2026, with relationships linked by
+> Arkiv keys.
 
 ## 1:30-1:50 - Verify
 
@@ -114,8 +128,8 @@ Say:
 
 > Now a reviewer can query proof history by project, status, source type, time
 > range, workspace relationship, and work-item relationship. The receipt checks
-> entity keys, transactions, owner, creator, relationships, and the privacy
-> boundary.
+> entity keys, transaction hashes, owner, creator, relationships, and the
+> privacy boundary. The public repo includes the setup commands and verifier.
 
 ## 1:50-2:00 - Close
 
