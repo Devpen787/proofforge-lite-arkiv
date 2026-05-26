@@ -32,9 +32,9 @@
             entities that reviewers can query without seeing the workspace.
           </p>
           <div class="proof-metrics" aria-label="ProofForge Lite proof state">
-            <span><small>Mode</small><strong>AI + Privacy</strong></span>
-            <span><small>Arkiv writes</small><strong>4 entity types</strong></span>
-            <span><small>Demo loop</small><strong>Work to verify</strong></span>
+            <span><small>Proof node</small><strong>bounded local runner</strong></span>
+            <span><small>Arkiv Braga</small><strong>6 records / 4 types</strong></span>
+            <span><small>Reviewer read</small><strong>public project queries</strong></span>
           </div>
           <div class="actions">
             <button id="buildPacket" class="button primary" type="button">
@@ -43,7 +43,7 @@
             <button id="inspectSchema" class="button ghost" type="button">
               Inspect Arkiv schema
             </button>
-            <button id="queryArkiv" class="button secondary" type="button" disabled>
+            <button id="queryArkiv" class="button secondary" type="button">
               Query Braga
             </button>
           </div>
@@ -56,7 +56,7 @@
           <p class="label">State</p>
           <strong id="stateLabel">Configured locally</strong>
           <span id="stateDetail">
-            No wallet action, no Arkiv query, no Arkiv write, no submission.
+            Public reads are open. Wallet approval is only required for Braga writes.
           </span>
           <code id="walletDiagnostic" class="wallet-diagnostic technical-only">
             wallet=not_connected chain=unknown
@@ -64,29 +64,30 @@
         </aside>
       </section>
 
-      <section class="proof-path" aria-label="Three-minute proof path">
-        <span><small>1</small>Private work</span>
-        <span><small>2</small>Redacted proof</span>
-        <span><small>3</small>Arkiv entities</span>
-        <span><small>4</small>Verifier receipt</span>
+      <section class="proof-path" aria-label="Agent operations proof path">
+        <span><small>1</small>Work lead</span>
+        <span><small>2</small>Mission gate</span>
+        <span><small>3</small>Proof node</span>
+        <span><small>4</small>Case file</span>
+        <span><small>5</small>Public proof</span>
       </section>
 
-      <section class="arkiv-role-grid" aria-label="Why Arkiv is load-bearing">
+      <section class="arkiv-role-grid ops-grid" aria-label="ProofForge agent operations state">
         <article>
-          <p class="label">Public proof memory</p>
-          <strong>Arkiv is the shared database reviewers can query.</strong>
+          <p class="label">Active mission</p>
+          <strong>Arkiv challenge proof packet is ready for operator review.</strong>
         </article>
         <article>
-          <p class="label">Wallet-owned records</p>
-          <strong>Braga writes expose owner and creator metadata.</strong>
+          <p class="label">Proof node</p>
+          <strong>Runner, verifier, and packager are bounded before any public action.</strong>
         </article>
         <article>
-          <p class="label">Project-scoped queries</p>
-          <strong>Every entity and query carries the same project attribute.</strong>
+          <p class="label">Reviewer</p>
+          <strong>Arkiv reviewers can inspect public proof without workspace access.</strong>
         </article>
         <article>
-          <p class="label">Private boundary</p>
-          <strong>Only redacted public proof leaves the workspace.</strong>
+          <p class="label">Value state</p>
+          <strong>Ready for submission; no prize, payout, or acceptance claimed.</strong>
         </article>
       </section>
 
@@ -116,22 +117,22 @@
             <h3>Run only if the proof target is bounded.</h3>
             <div class="fact-grid">
               <span><small>Acceptance</small><strong>Arkiv reviewers</strong></span>
-              <span><small>Value path</small><strong>Manual USDC prize claim</strong></span>
-              <span><small>Risk</small><strong>Low, approval-gated</strong></span>
-              <span><small>Runtime</small><strong>Under 3 minutes demo</strong></span>
+              <span><small>Required proof</small><strong>repo + Braga demo + live refs</strong></span>
+              <span><small>Boundary</small><strong>no private notes or secrets</strong></span>
+              <span><small>Approval gate</small><strong>writes and submission are explicit</strong></span>
             </div>
           </article>
           <article class="panel">
             <p class="label">Bounded proof node</p>
             <h3>Explicit tools, explicit blocks.</h3>
             <div class="boundary-grid">
-              <span>Allowed: local checks</span>
-              <span>Allowed: public-safe packet</span>
+              <span>Runner: local checks</span>
+              <span>Verifier: schema + privacy</span>
+              <span>Packager: public-safe packet</span>
+              <span>Human: wallet approval</span>
               <span>Blocked: submissions</span>
-              <span>Blocked: live queries before approval</span>
               <span>Blocked: wallet writes before approval</span>
               <span>Blocked: private notes</span>
-              <span>Blocked: payout details</span>
             </div>
           </article>
         </div>
@@ -148,6 +149,7 @@
               <span>Risk and evidence counts included</span>
               <span>Private transcripts excluded</span>
             </div>
+            <div id="proofRunTrace" class="run-trace" aria-label="Proof node lifecycle"></div>
           </article>
           <article class="panel">
             <p class="label">Review event</p>
@@ -166,7 +168,7 @@
         <div class="section-head">
           <div>
             <p class="label">Arkiv memory</p>
-            <h3>Four linked entity types, all project-scoped.</h3>
+            <h3>Six Arkiv records across four entity types, all project-scoped.</h3>
           </div>
           <button id="liveWrite" class="button primary" type="button" disabled>
             Write Arkiv entities

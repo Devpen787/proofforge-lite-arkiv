@@ -280,7 +280,7 @@ body[data-mode="story"] .technical-evidence {
 
 .proof-path {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 8px;
   margin-top: 14px;
 }
@@ -510,6 +510,38 @@ body[data-mode="story"] .technical-evidence {
 
 .packet-list {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.run-trace {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.run-trace span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  border: 1px solid rgba(36, 122, 87, 0.18);
+  border-radius: 8px;
+  background: var(--green-soft);
+  color: var(--ink);
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.run-trace small {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--green);
+  color: white;
+  font-size: 11px;
 }
 
 .entity-grid {

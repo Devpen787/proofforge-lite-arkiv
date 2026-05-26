@@ -19904,6 +19904,13 @@ var receipt = {
     entityKeys: ["pending_wallet_write_approval"]
   }
 };
+var proofRunTrace = [
+  "Runner: source page checked",
+  "Verifier: requirements mapped",
+  "Verifier: privacy boundary checked",
+  "Packager: proof packet prepared",
+  "Human approval: wallet write gated"
+];
 var publicPrivateSplit = {
   publishedToArkiv: public_safe_packet_default.publicFields,
   keptPrivate: public_safe_packet_default.privateFieldsExcluded
@@ -19926,6 +19933,7 @@ var workRows = requiredElement("#workRows");
 var entityList = requiredElement("#entityList");
 var receiptOutput = requiredElement("#receiptOutput");
 var evidenceSummary = requiredElement("#evidenceSummary");
+var proofRunTraceList = requiredElement("#proofRunTrace");
 var stateLabel = requiredElement("#stateLabel");
 var stateDetail = requiredElement("#stateDetail");
 var activeWorkTitle = requiredElement("#activeWorkTitle");
@@ -20008,6 +20016,8 @@ function attributesByKey(entity) {
 function renderWorkRows() {
   workRows.innerHTML = seed_work_items_default.map((workItem) => {
     const selected = workItem.workItemId === selectedWorkItem.workItemId;
+    const risk = workItem.riskScore <= 20 ? "low risk" : "needs review";
+    const nextAction = selected ? "Continue proof run" : "Keep queued";
     return `
         <article class="work-row ${selected ? "selected" : ""}">
           <div>
@@ -20015,8 +20025,8 @@ function renderWorkRows() {
             <span>${workItem.source} \xB7 ${workItem.acceptanceOwner}</span>
           </div>
           <b>${workItem.status.replaceAll("_", " ")}</b>
-          <span>${workItem.sourceType}</span>
-          <span>${workItem.evidenceCount} evidence refs</span>
+          <span>${risk} \xB7 ${workItem.evidenceCount} evidence refs</span>
+          <span>${nextAction}</span>
         </article>
       `;
   }).join("");
@@ -20035,6 +20045,16 @@ function renderEntityList() {
         </article>
       `;
   }).join("");
+}
+function renderProofRunTrace() {
+  proofRunTraceList.innerHTML = proofRunTrace.map(
+    (event, index2) => `
+        <span>
+          <small>${index2 + 1}</small>
+          ${event}
+        </span>
+      `
+  ).join("");
 }
 function setReceiptView(value, title = "Verifier receipt") {
   requiredElement("#detailsTitle").textContent = title;
@@ -20061,6 +20081,7 @@ function renderEvidenceSummary(value, title) {
       summaryCard("Work item", selectedWorkItem.title),
       summaryCard("Public proof", "requirements + hashes + status"),
       summaryCard("Private boundary", `${public_safe_packet_default.privateFieldsExcluded.length} fields excluded`, "quiet"),
+      summaryCard("Ops trace", "runner -> verifier -> packager", "quiet"),
       summaryCard("Next action", "write linked Arkiv entities", "accent")
     ].join("");
     return;
@@ -20079,12 +20100,15 @@ function renderEvidenceSummary(value, title) {
     const txHashes = Array.isArray(protocolRefs.txHashes) ? protocolRefs.txHashes : [];
     const queryEvidence = protocolRefs.queryEvidence && typeof protocolRefs.queryEvidence === "object" ? protocolRefs.queryEvidence : {};
     const queryCount = Object.values(queryEvidence).filter((count) => Number(count) > 0).length;
+    const relationshipCount = Number(queryEvidence.reviewEventsByWorkspaceCount ?? 0) + Number(queryEvidence.reviewEventsByWorkItemCount ?? 0);
     evidenceSummary.innerHTML = [
       summaryCard("Arkiv state", "write complete", "accent"),
       summaryCard("Workspace entity", compactRef(protocolRefs.proofWorkspaceEntityKey)),
       summaryCard("Proof packet entity", compactRef(protocolRefs.proofPacketEntityKey)),
       summaryCard("Transactions", `${txHashes.length} Braga writes`),
-      summaryCard("Owner / creator", compactRef(protocolRefs.owner)),
+      summaryCard("Owner", compactRef(protocolRefs.owner)),
+      summaryCard("Creator", compactRef(protocolRefs.creator)),
+      summaryCard("Linked review events", `${relationshipCount} relationship reads`),
       summaryCard("Queries verified", `${queryCount} paths returned evidence`, "accent")
     ].join("");
     return;
@@ -20102,10 +20126,10 @@ function renderEvidenceSummary(value, title) {
     return;
   }
   evidenceSummary.innerHTML = [
-    summaryCard("Primitive", "public proof memory"),
-    summaryCard("Network", "Arkiv Braga"),
-    summaryCard("Entity types", `${receipt.entities.length} planned records`),
-    summaryCard("Verifier", "deterministic CLI", "accent")
+    summaryCard("Active mission", selectedWorkItem.title),
+    summaryCard("Proof node", "bounded local runner"),
+    summaryCard("Arkiv target", `${receipt.entities.length} records / 4 types`),
+    summaryCard("Reviewer read", "public project queries", "accent")
   ].join("");
 }
 function safeJsonStringify(value) {
@@ -20239,7 +20263,6 @@ connectWallet.addEventListener("click", async () => {
     walletDiagnostic.textContent = "wallet=approval_requested chain=checking";
     walletClient = await createBrowserWalletClient();
     await updateWalletUi();
-    queryArkiv.disabled = false;
     liveWrite.disabled = false;
     showStep("memory");
   } catch (error) {
@@ -20313,15 +20336,8 @@ liveWrite.addEventListener("click", async () => {
   }
 });
 queryArkiv.addEventListener("click", async () => {
-  if (!walletClient) {
-    setState(
-      "Wallet approval required",
-      "Connect the approved Braga wallet before running live Arkiv queries."
-    );
-    return;
-  }
   try {
-    setState("Querying Braga", "Reading public Arkiv entities with project-scoped filters.");
+    setState("Querying public Braga", "Reading public Arkiv entities with project-scoped filters. Wallet is not required for reads.");
     const publicClient = createArkivPublicClient();
     const [workByProject, workByStatus, byStatus, bySource, recent] = await Promise.all([
       queryWorkItemsByProject(publicClient),
@@ -20330,7 +20346,7 @@ queryArkiv.addEventListener("click", async () => {
       queryProofPacketsBySourceType(publicClient, public_safe_packet_default.sourceType),
       queryRecentProofPackets(publicClient, public_safe_packet_default.createdAtMs - 1)
     ]);
-    setState("Arkiv query complete", "Query results include the project attribute on every path.");
+    setState("Arkiv query complete", "Public query results include the project attribute on every path.");
     setReceiptView(
       {
         workItemsByProjectCount: extractResultCount(workByProject),
@@ -20375,6 +20391,7 @@ activeWorkTitle.textContent = selectedWorkItem.title;
 activeWorkMeta.textContent = `${selectedWorkItem.source} \xB7 ${selectedWorkItem.status.replaceAll("_", " ")}`;
 renderWorkRows();
 renderEntityList();
+renderProofRunTrace();
 setReceiptView(receipt);
 setMode(currentMode);
 showStep("work");

@@ -87,11 +87,12 @@ async function runViewport(page, viewport, label) {
   );
   const proofPathText = ((await page.locator(".proof-path").first().textContent()) ?? "").replace(/\s+/g, " ");
   assert(
-    proofPathText.includes("Private work") &&
-      proofPathText.includes("Redacted proof") &&
-      proofPathText.includes("Arkiv entities") &&
-      proofPathText.includes("Verifier receipt"),
-    `${label} proof path strip is missing the private-to-Arkiv-to-verifier story`,
+    proofPathText.includes("Work lead") &&
+      proofPathText.includes("Mission gate") &&
+      proofPathText.includes("Proof node") &&
+      proofPathText.includes("Case file") &&
+      proofPathText.includes("Public proof"),
+    `${label} proof path strip is missing the agent-ops proof story`,
   );
   const arkivRoleCount = await page.locator(".arkiv-role-grid article").count();
   assert(arkivRoleCount === 4, `${label} expected 4 Arkiv role cards, found ${arkivRoleCount}`);
@@ -100,7 +101,7 @@ async function runViewport(page, viewport, label) {
     ["Work", "work", "Source-backed work"],
     ["Preflight", "preflight", "Run only if"],
     ["Proof Packet", "packet", "Only public-safe facts"],
-    ["Arkiv Memory", "memory", "Four linked entity types"],
+    ["Arkiv Memory", "memory", "Six Arkiv records"],
     ["Verify", "verify", "Reviewer reads proof history"],
   ]) {
     await clickStep(page, step, panel, heading);
@@ -121,7 +122,7 @@ async function runViewport(page, viewport, label) {
 
   await page.getByRole("button", { name: "Arkiv Memory", exact: true }).click();
   assert(await page.locator("#liveWrite").isDisabled(), `${label} live write must stay disabled before wallet approval`);
-  assert(await page.locator("#queryArkiv").isDisabled(), `${label} Braga query must stay disabled before wallet approval`);
+  assert(!(await page.locator("#queryArkiv").isDisabled()), `${label} Braga query should be public-read enabled before wallet approval`);
 
   await page.getByRole("button", { name: "Verify", exact: true }).click();
   assert(

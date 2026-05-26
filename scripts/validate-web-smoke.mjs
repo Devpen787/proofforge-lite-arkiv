@@ -59,8 +59,8 @@ for (const expected of [
   "Build proof packet",
   "Inspect Arkiv schema",
   "Query Braga",
-  "No wallet action, no Arkiv query, no Arkiv write, no submission.",
-  "Blocked: live queries before approval",
+  "Public reads are open. Wallet approval is only required for Braga writes.",
+  "Runner: local checks",
   "Work",
   "Preflight",
   "Proof Packet",
@@ -68,6 +68,8 @@ for (const expected of [
   "Verify",
   "Write Arkiv entities",
   "Copy live result",
+  "6 records / 4 types",
+  "Six Arkiv records across four entity types",
 ]) {
   if (!html.includes(expected)) {
     fail(`web/index.html missing demo phrase: ${expected}`);
