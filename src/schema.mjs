@@ -25,7 +25,7 @@ export function buildProofWorkspaceEntity({ nowMs, workItemCount = 3 }) {
       tagline: "Powered by Arkiv",
       purpose: "Wallet-owned public proof memory for private agent-assisted work.",
       privacyBoundary:
-        "Private ProofForge notes, drafts, payout context, local paths, and approval history stay outside Arkiv.",
+        "Non-public workspace material, payment context, local paths, and internal gate history stay outside Arkiv.",
     },
     contentType: "application/json",
     attributes: [

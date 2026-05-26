@@ -7,7 +7,7 @@
     "dev": "node scripts/serve-web.mjs",
     "build:web": "node scripts/build-web.mjs",
     "smoke:web": "node scripts/validate-web-smoke.mjs",
-    "test:demo-path": "node scripts/validate-demo-clickthrough.mjs",
+    "test:web-clickthrough": "node scripts/validate-web-clickthrough.mjs",
     "build:receipt": "node scripts/build-receipt.mjs",
     "finalize:receipt": "node scripts/finalize-live-receipt.mjs",
     "live-result:check": "node scripts/validate-live-write-result.mjs",
@@ -21,7 +21,7 @@
     "validate:package": "node scripts/validate-submission-package.mjs",
     "requirements:check": "node scripts/validate-challenge-requirements.mjs",
     "privacy:check": "node scripts/validate-public-privacy-boundary.mjs",
-    "check": "npm run build:receipt && npm run verify && npm run verify:adapter && npm run test:write-plan && npm run live-result:check:example && npm run verify:live-example && npm run live:evidence:packet:check && npm run test:verifier && npm run build:web && npm run smoke:web && npm run test:demo-path && npm run requirements:check && npm run validate:package && npm run privacy:check"
+    "check": "npm run build:receipt && npm run verify && npm run verify:adapter && npm run test:write-plan && npm run live-result:check:example && npm run verify:live-example && npm run live:evidence:packet:check && npm run test:verifier && npm run build:web && npm run smoke:web && npm run test:web-clickthrough && npm run requirements:check && npm run validate:package && npm run privacy:check"
   },
   "dependencies": {
     "@arkiv-network/sdk": "0.6.8"

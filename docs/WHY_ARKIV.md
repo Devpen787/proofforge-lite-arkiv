@@ -1,9 +1,9 @@
 # Why Arkiv
 
 ProofForge is a private operating workspace for agent-assisted work. It can
-contain sensitive notes, drafts, payout context, approval history, local paths,
-and internal execution traces. That private workspace should not become public
-just because someone needs to verify that work happened.
+contain non-public planning material, payment context, local paths, and internal
+execution traces. That private workspace should not become public just because
+someone needs to verify that work happened.
 
 The gap is public proof memory.
 
@@ -89,5 +89,5 @@ ProofForge workspace.
 ## Boundary
 
 This repository shows the public proof layer. It intentionally excludes private
-records, private drafts, payout setup details, local machine paths, and wallet
-secrets.
+records, unpublished drafts, payment setup details, local machine paths, and
+signing material.

@@ -25,11 +25,11 @@
     "Arkiv entity references after live write"
   ],
   "privateFieldsExcluded": [
-    "private opportunity notes",
-    "payout setup context",
-    "drafts",
-    "approval history",
+    "non-public workspace material",
+    "payment setup context",
+    "unpublished drafts",
+    "internal gate history",
     "local execution transcripts",
-    "wallet secrets"
+    "signing material"
   ]
 }

@@ -67,7 +67,7 @@ const requiredFiles = [
   "scripts/validate-live-evidence-packet.mjs",
   "scripts/build-web.mjs",
   "scripts/validate-web-smoke.mjs",
-  "scripts/validate-demo-clickthrough.mjs",
+  "scripts/validate-web-clickthrough.mjs",
   "scripts/build-receipt.mjs",
   "scripts/finalize-live-receipt.mjs",
   "scripts/verify-receipt.mjs",
@@ -81,9 +81,6 @@ const requiredFiles = [
   "docs/WHY_ARKIV.md",
   "docs/LIVE_EVIDENCE_GUIDE.md",
   "docs/JUDGE_QUICKSTART.md",
-  "docs/DEMO_SCRIPT_2_MIN.md",
-  "docs/DEMO_SCRIPT_3_MIN.md",
-  "docs/DEMO_RECORDING_CHECKLIST.md",
   "docs/BRAGA_TEST_WALLET_SETUP.md",
   "web/index.html",
   "web/styles.css",
@@ -104,7 +101,7 @@ if (isPrivateStarter) {
     "data/live-evidence-packet.example.json",
     "data/submission-metadata.example.json",
     "scripts/validate-deadline-source-gate.mjs",
-    "scripts/validate-demo-clickthrough.mjs",
+    "scripts/validate-web-clickthrough.mjs",
     "scripts/validate-deadline-runway.mjs",
     "scripts/validate-deployment-qa-packet.mjs",
     "scripts/validate-linked-terms-due-diligence.mjs",
@@ -186,8 +183,6 @@ if (isPrivateStarter) {
 const publicDraftFiles = [
   "docs/PUBLIC_README_DRAFT.md",
   "docs/SUBMISSION_FORM_DRAFT.md",
-  "docs/DEMO_SCRIPT_2_MIN.md",
-  "docs/DEMO_SCRIPT_3_MIN.md",
   "docs/LIVE_CUTOVER_CHECKLIST.md",
   "docs/APPROVAL_PACKET.md",
   "docs/SUBMISSION_READINESS_REPORT.md",
@@ -537,9 +532,8 @@ for (const expected of [
   "docs/LIVE_EVIDENCE_GUIDE.md",
   "docs/WHY_ARKIV.md",
   "docs/JUDGE_QUICKSTART.md",
-  "docs/DEMO_SCRIPT_2_MIN.md",
-  "docs/DEMO_RECORDING_CHECKLIST.md",
   "docs/BRAGA_TEST_WALLET_SETUP.md",
+  "Demo video: https://youtu.be/g33aPHGaw_4",
   "docs/screenshots/ui-desktop-bundled.png",
   "docs/screenshots/ui-mobile-bundled.png",
   "docs/screenshots/live-query-complete.png",
@@ -605,43 +599,6 @@ for (const expected of [
 ]) {
   if (!judgeQuickstart.includes(expected)) {
     failures.push(`JUDGE_QUICKSTART.md missing phrase: ${expected}`);
-  }
-}
-
-const demoChecklist = fs.readFileSync(
-  new URL("docs/DEMO_RECORDING_CHECKLIST.md", root),
-  "utf8",
-);
-for (const expected of [
-  "# Demo Recording Checklist",
-  "Record only after the approved live Arkiv write/query path works.",
-  "ProofForge Lite",
-  "Work lead -> Mission gate -> Proof node -> Case file -> Public proof",
-  "Verifier command passing on the finalized live receipt.",
-  "Official submission form before final submission approval",
-]) {
-  if (!demoChecklist.includes(expected)) {
-    failures.push(`DEMO_RECORDING_CHECKLIST.md missing phrase: ${expected}`);
-  }
-}
-
-const demoScript2Min = fs.readFileSync(
-  new URL("docs/DEMO_SCRIPT_2_MIN.md", root),
-  "utf8",
-);
-for (const expected of [
-  "# 2-Minute Screen-Share Demo Script",
-  "## Demo Thesis",
-  "Find useful work. Prove it safely. Get accepted.",
-  "Existing work sources, agent runs, maintainer decisions",
-  "## 0:00-0:20 - Context And Promise",
-  "## 0:32-0:48 - Preflight",
-  "## 1:05-1:30 - Arkiv Memory",
-  "Arkiv is great for ProofForge because proof has to be public",
-  "Keep narration near 285 spoken words.",
-]) {
-  if (!demoScript2Min.includes(expected)) {
-    failures.push(`DEMO_SCRIPT_2_MIN.md missing phrase: ${expected}`);
   }
 }
 

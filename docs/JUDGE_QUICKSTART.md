@@ -25,11 +25,11 @@ proof memory database for private ProofForge work, not a standalone toy store.
 npm ci
 npm run check
 npm run smoke:web
-npm run test:demo-path
+npm run test:web-clickthrough
 npm run test:verifier
 ```
 
-`npm run test:demo-path` opens the bundled app in a real browser, clicks the
+`npm run test:web-clickthrough` opens the bundled app in a real browser, clicks the
 five-step demo path on desktop and mobile, and confirms approval-gated
 live-query/live-write actions are still locked.
 

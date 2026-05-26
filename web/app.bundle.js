@@ -9893,12 +9893,12 @@ var public_safe_packet_default = {
     "Arkiv entity references after live write"
   ],
   privateFieldsExcluded: [
-    "private opportunity notes",
-    "payout setup context",
-    "drafts",
-    "approval history",
+    "non-public workspace material",
+    "payment setup context",
+    "unpublished drafts",
+    "internal gate history",
     "local execution transcripts",
-    "wallet secrets"
+    "signing material"
   ]
 };
 
@@ -19580,7 +19580,7 @@ function buildProofWorkspaceEntity({ nowMs, workItemCount = 3 }) {
       name: "ProofForge Lite",
       tagline: "Powered by Arkiv",
       purpose: "Wallet-owned public proof memory for private agent-assisted work.",
-      privacyBoundary: "Private ProofForge notes, drafts, payout context, local paths, and approval history stay outside Arkiv."
+      privacyBoundary: "Non-public workspace material, payment context, local paths, and internal gate history stay outside Arkiv."
     },
     contentType: "application/json",
     attributes: [

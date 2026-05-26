@@ -32,6 +32,8 @@ Public repository: https://github.com/Devpen787/proofforge-lite-arkiv
 
 Deployed demo: https://proofforge-lite-arkiv.vercel.app
 
+Demo video: https://youtu.be/g33aPHGaw_4
+
 Live Braga evidence captured: May 26, 2026.
 
 This README separates live, configured, and roadmap claims. The current live
@@ -166,10 +168,10 @@ For a faster UI/deploy smoke check after building:
 ```bash
 npm run build:web
 npm run smoke:web
-npm run test:demo-path
+npm run test:web-clickthrough
 ```
 
-`npm run test:demo-path` starts the bundled app locally, clicks through the
+`npm run test:web-clickthrough` starts the bundled app locally, clicks through the
 Work, Preflight, Proof Packet, Arkiv Memory, and Verify path on desktop and
 mobile viewports, and confirms the wallet/live-query/live-write controls stay
 gated before approval.
@@ -229,7 +231,7 @@ Published:
 
 Not published:
 
-- private opportunity notes;
+- non-public workspace material;
 - execution transcripts;
 - payment setup metadata;
 - drafts;
@@ -252,8 +254,7 @@ Live:
 
 Configured for final submission:
 
-- demo video recording;
-- final Network School task and Arkiv form metadata.
+- Network School task and Arkiv form metadata.
 
 Roadmap:
 
@@ -313,7 +314,5 @@ RECEIPT_PATH=out/live-proof-memory-receipt.json npm run verify
 See `docs/LIVE_EVIDENCE_GUIDE.md` for the full post-approval evidence path.
 See `docs/WHY_ARKIV.md` and `docs/JUDGE_QUICKSTART.md` for the fastest review
 path and rubric map.
-Use `docs/DEMO_SCRIPT_2_MIN.md` and `docs/DEMO_RECORDING_CHECKLIST.md` for the
-2-minute screen-share recording.
 Use `docs/BRAGA_TEST_WALLET_SETUP.md` to prepare a public-safe burner wallet
 without placing wallet recovery material or signing data in the repository.
