@@ -90,6 +90,7 @@ const forbiddenTextPatterns = [
 
 const allowedSecretContextFiles = new Set([
   "README.md",
+  "docs/DEMO_SCRIPT_2_MIN.md",
   "docs/DEMO_SCRIPT_3_MIN.md",
   "docs/REQUIREMENTS_MATRIX.md",
   "scripts/validate-public-privacy-boundary.mjs",

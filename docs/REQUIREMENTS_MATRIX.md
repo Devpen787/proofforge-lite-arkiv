@@ -25,7 +25,7 @@ Arkiv submission draft.
 | README with setup/stack/team/theme/approach | Published with live refs | `README.md` in the public repo | None before final review |
 | Official submission form | Pending approval | `SUBMISSION_FORM_DRAFT.md` | Needs final review and explicit submit approval |
 | Network School task page submission | Pending approval | exact task page requirements noted | Needs final review and explicit submit approval |
-| Demo video link | Pending | `DEMO_SCRIPT_3_MIN.md` | Optional at submission on task page, required for prize claim; still required by local stop-loss before Approval 2 |
+| Demo video link | Pending | `DEMO_SCRIPT_2_MIN.md` | Optional at submission on task page, required for prize claim; still required by local stop-loss before Approval 2 |
 | EVM wallet address | Approved for Approval 1 | `0xdEA670F17DA2Ea7b1a9Fb037DCf14231DB37534e` | Use only for approved Braga cutover; do not publish secrets |
 
 ## Arkiv Data Claim

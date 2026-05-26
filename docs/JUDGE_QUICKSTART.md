@@ -3,14 +3,15 @@
 This guide is public-safe. It is written for fast challenge review after the
 public repo and deployed demo exist.
 
-## 3-Minute Review Path
+## 2-Minute Review Path
 
 Start with the deployed demo. The important claim is that Arkiv is the public
 proof memory database for private ProofForge work, not a standalone toy store.
 
 1. Open the deployed HTTPS demo.
 2. Review the selected work item: `Arkiv ETHNS Web3 Database Builder Challenge`.
-3. Open `Preflight` to see requirements, value path, risk, and blocked actions.
+3. Open `Preflight` to see requirements, privacy boundary, approval gates, and
+   blocked actions.
 4. Open `Proof Packet` to see the redacted public/private split.
 5. Connect a Braga-compatible EVM wallet and approve the Braga chain prompt if
    the wallet is on another network.

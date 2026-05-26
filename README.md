@@ -66,8 +66,8 @@ Work
 -> Verify
 ```
 
-In the live demo, the browser writes four linked entity types to Arkiv Braga and
-then queries them back through project-scoped filters.
+In the live demo, the browser writes six linked records across four entity
+types to Arkiv Braga and then queries them back through project-scoped filters.
 
 ## Screenshots
 
@@ -313,7 +313,7 @@ RECEIPT_PATH=out/live-proof-memory-receipt.json npm run verify
 See `docs/LIVE_EVIDENCE_GUIDE.md` for the full post-approval evidence path.
 See `docs/WHY_ARKIV.md` and `docs/JUDGE_QUICKSTART.md` for the fastest review
 path and rubric map.
-Use `docs/DEMO_SCRIPT_3_MIN.md` and `docs/DEMO_RECORDING_CHECKLIST.md` for the
-2 to 3 minute screen-share recording.
+Use `docs/DEMO_SCRIPT_2_MIN.md` and `docs/DEMO_RECORDING_CHECKLIST.md` for the
+2-minute screen-share recording.
 Use `docs/BRAGA_TEST_WALLET_SETUP.md` to prepare a public-safe burner wallet
 without placing wallet recovery material or signing data in the repository.

@@ -81,6 +81,7 @@ const requiredFiles = [
   "docs/WHY_ARKIV.md",
   "docs/LIVE_EVIDENCE_GUIDE.md",
   "docs/JUDGE_QUICKSTART.md",
+  "docs/DEMO_SCRIPT_2_MIN.md",
   "docs/DEMO_SCRIPT_3_MIN.md",
   "docs/DEMO_RECORDING_CHECKLIST.md",
   "docs/BRAGA_TEST_WALLET_SETUP.md",
@@ -185,6 +186,7 @@ if (isPrivateStarter) {
 const publicDraftFiles = [
   "docs/PUBLIC_README_DRAFT.md",
   "docs/SUBMISSION_FORM_DRAFT.md",
+  "docs/DEMO_SCRIPT_2_MIN.md",
   "docs/DEMO_SCRIPT_3_MIN.md",
   "docs/LIVE_CUTOVER_CHECKLIST.md",
   "docs/APPROVAL_PACKET.md",
@@ -535,6 +537,7 @@ for (const expected of [
   "docs/LIVE_EVIDENCE_GUIDE.md",
   "docs/WHY_ARKIV.md",
   "docs/JUDGE_QUICKSTART.md",
+  "docs/DEMO_SCRIPT_2_MIN.md",
   "docs/DEMO_RECORDING_CHECKLIST.md",
   "docs/BRAGA_TEST_WALLET_SETUP.md",
   "docs/screenshots/ui-desktop-bundled.png",
@@ -593,7 +596,7 @@ const judgeQuickstart = fs.readFileSync(
 );
 for (const expected of [
   "# Judge Quickstart",
-  "## 3-Minute Review Path",
+  "## 2-Minute Review Path",
   "## Rubric Map",
   "Entity schema design",
   "Query usage",
@@ -613,12 +616,29 @@ for (const expected of [
   "# Demo Recording Checklist",
   "Record only after the approved live Arkiv write/query path works.",
   "ProofForge Lite",
-  "Private work -> Redacted proof -> Arkiv entities -> Verifier receipt",
+  "Work lead -> Mission gate -> Proof node -> Case file -> Public proof",
   "Verifier command passing on the finalized live receipt.",
   "Official submission form before final submission approval",
 ]) {
   if (!demoChecklist.includes(expected)) {
     failures.push(`DEMO_RECORDING_CHECKLIST.md missing phrase: ${expected}`);
+  }
+}
+
+const demoScript2Min = fs.readFileSync(
+  new URL("docs/DEMO_SCRIPT_2_MIN.md", root),
+  "utf8",
+);
+for (const expected of [
+  "# 2-Minute Screen-Share Demo Script",
+  "## 0:00-0:12 - First View",
+  "## 0:25-0:42 - Preflight",
+  "## 1:00-1:25 - Arkiv Memory",
+  "ProofForge Lite writes six records across four",
+  "Keep narration under 260 spoken words.",
+]) {
+  if (!demoScript2Min.includes(expected)) {
+    failures.push(`DEMO_SCRIPT_2_MIN.md missing phrase: ${expected}`);
   }
 }
 

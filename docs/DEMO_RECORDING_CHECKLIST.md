@@ -1,6 +1,6 @@
 # Demo Recording Checklist
 
-Public-safe checklist for the 2 to 3 minute ProofForge Lite screen share.
+Public-safe checklist for the 2-minute ProofForge Lite screen share.
 Record only after the approved live Arkiv write/query path works.
 
 ## Screen Setup
@@ -18,32 +18,35 @@ Use the first viewport to establish the whole narrative before clicking:
 ```text
 ProofForge Lite
 Private agent work. Public Arkiv proof trail.
-Private work -> Redacted proof -> Arkiv entities -> Verifier receipt
+Work lead -> Mission gate -> Proof node -> Case file -> Public proof
 ```
 
 The judge should understand the product before any terminal command appears.
 
 ## Required Recording Beats
 
-1. Work: show the selected Arkiv challenge work item and the public-safe Work
+1. First view: show proof node, Arkiv Braga state, and reviewer read path.
+2. Work: show the selected Arkiv challenge work item and the public-safe Work
    queue.
-2. Preflight: show acceptance owner, value path, risk, blocked actions, and the
-   approval-gated proof node.
-3. Proof Packet: build the packet and show that private workspace material is
+3. Preflight: show acceptance owner, required proof, privacy boundary, blocked
+   actions, and the approval-gated proof node.
+4. Proof Packet: build the packet and show that private workspace material is
    excluded.
-4. Arkiv Memory: show the four linked entity types and the live Braga write.
-5. Verify: show project-scoped query evidence and the receipt verifier.
+5. Arkiv Memory: show six records across four entity types and the live Braga
+   write/query path.
+6. Verify: show project-scoped query evidence and the receipt verifier.
 
 ## Timing Budget
 
 | Segment | Target |
 | --- | ---: |
-| Work | 0:25 |
-| Preflight | 0:30 |
-| Proof Packet | 0:30 |
-| Arkiv Memory | 0:40 |
-| Verify | 0:35 |
-| Close | 0:20 |
+| First view | 0:12 |
+| Work | 0:13 |
+| Preflight | 0:17 |
+| Proof Packet | 0:18 |
+| Arkiv Memory | 0:25 |
+| Verify | 0:20 |
+| Close | 0:15 |
 
 If a wallet prompt or transaction confirmation takes too long, restart the
 recording after the transaction is ready. The submitted video should show the
@@ -53,7 +56,7 @@ successful end-to-end path, not waiting time.
 
 - Product name: `ProofForge Lite`.
 - Arkiv role: public proof memory, not a decorative integration.
-- Four entity types: `proof_workspace`, `work_item`,
+- Six records across four entity types: `proof_workspace`, `work_item`,
   `proof_packet_summary`, `review_event`.
 - Unique project attribute: `project=proofforge-lite-arkiv-ethns-2026`.
 - Live entity keys and transaction hashes after write.
