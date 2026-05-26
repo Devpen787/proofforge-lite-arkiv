@@ -19924,11 +19924,14 @@ var stateLabel = requiredElement("#stateLabel");
 var stateDetail = requiredElement("#stateDetail");
 var activeWorkTitle = requiredElement("#activeWorkTitle");
 var activeWorkMeta = requiredElement("#activeWorkMeta");
+var connectWallet = requiredElement("#connectWallet");
 var liveWrite = requiredElement("#liveWrite");
 var copyLiveResult = requiredElement("#copyLiveResult");
 var queryArkiv = requiredElement("#queryArkiv");
+var walletDiagnostic = requiredElement("#walletDiagnostic");
 var walletClient;
 var latestLiveWriteResult;
+var connectedAccount = "";
 function requiredElement(selector) {
   const element = document.querySelector(selector);
   if (!element) {
@@ -19939,6 +19942,38 @@ function requiredElement(selector) {
 function setState(label, detail) {
   stateLabel.textContent = label;
   stateDetail.textContent = detail;
+}
+function shortAddress(address) {
+  return address ? `${address.slice(0, 6)}...${address.slice(-4)}` : "unknown";
+}
+async function readWalletDiagnostic() {
+  const ethereum = window.ethereum;
+  if (!ethereum?.request) {
+    return {
+      account: "",
+      chainId: "missing"
+    };
+  }
+  const [accounts, chainId] = await Promise.all([
+    ethereum.request({ method: "eth_accounts" }).catch(() => []),
+    ethereum.request({ method: "eth_chainId" }).catch(() => "unknown")
+  ]);
+  const account = Array.isArray(accounts) && typeof accounts[0] === "string" ? accounts[0] : "";
+  return {
+    account,
+    chainId: String(chainId)
+  };
+}
+async function updateWalletUi(label = "Wallet connected") {
+  const diagnostic = await readWalletDiagnostic();
+  connectedAccount = diagnostic.account;
+  connectWallet.textContent = connectedAccount ? `Connected ${shortAddress(connectedAccount)}` : "Wallet connected";
+  connectWallet.classList.add("connected");
+  walletDiagnostic.textContent = `wallet=${shortAddress(connectedAccount)} chain=${diagnostic.chainId}`;
+  setState(
+    label,
+    connectedAccount ? `Ready for explicit Arkiv writes from ${shortAddress(connectedAccount)}.` : "Ready for explicit Arkiv writes, but no account was returned by the wallet."
+  );
 }
 function showStep(step) {
   for (const tab of stepTabs) {
@@ -20112,11 +20147,12 @@ async function buildLiveWriteResult(writeResult) {
     }
   };
 }
-requiredElement("#connectWallet").addEventListener("click", async () => {
+connectWallet.addEventListener("click", async () => {
   try {
     setState("Wallet approval required", "Approve the Braga account connection in your wallet.");
+    walletDiagnostic.textContent = "wallet=approval_requested chain=checking";
     walletClient = await createBrowserWalletClient();
-    setState("Wallet connected", "Ready for an explicit Arkiv write action.");
+    await updateWalletUi();
     queryArkiv.disabled = false;
     liveWrite.disabled = false;
     showStep("memory");
@@ -20154,8 +20190,14 @@ requiredElement("#inspectSchema").addEventListener("click", () => {
 liveWrite.addEventListener("click", async () => {
   try {
     liveWrite.disabled = true;
-    setState("Writing to Braga", "Confirm the wallet transaction to create linked Arkiv entities.");
+    liveWrite.textContent = "Waiting for wallet";
+    setState("Writing to Braga", "If MetaMask is open, approve the transaction prompt there.");
     walletClient ??= await createBrowserWalletClient();
+    await updateWalletUi("Wallet checked");
+    setState(
+      "Writing to Braga",
+      "Approving creates one workspace entity, one work queue batch, then one proof packet/review batch."
+    );
     const writeResult = await publishProofMemory(walletClient, {
       packet: public_safe_packet_default,
       workItem: selectedWorkItem,
@@ -20176,8 +20218,11 @@ liveWrite.addEventListener("click", async () => {
     );
     showStep("verify");
   } catch (error) {
-    setState("Arkiv write failed", error instanceof Error ? error.message : String(error));
+    const message = error instanceof Error ? error.message : String(error);
+    setState("Arkiv write failed", message);
+    walletDiagnostic.textContent = `write_error=${message.slice(0, 120)}`;
   } finally {
+    liveWrite.textContent = "Write Arkiv entities";
     liveWrite.disabled = false;
   }
 });

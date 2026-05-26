@@ -173,6 +173,11 @@ h3 {
   color: var(--ink);
 }
 
+.button.connected {
+  border-color: rgba(47, 126, 91, 0.35);
+  color: var(--green);
+}
+
 .button.ghost {
   background: var(--green-soft);
   color: var(--green);
@@ -211,6 +216,18 @@ h3 {
 .state-card span {
   color: var(--muted);
   line-height: 1.45;
+}
+
+.wallet-diagnostic {
+  display: block;
+  margin-top: 0.9rem;
+  padding: 0.7rem 0.75rem;
+  border-radius: 8px;
+  background: #f5f7f9;
+  color: #526073;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .state-card hr {
