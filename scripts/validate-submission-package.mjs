@@ -526,7 +526,8 @@ for (const expected of [
   "## Arkiv Integration",
   "Official deadline: May 27, 2026 23:59 UTC.",
   "This README separates live, configured, and roadmap claims.",
-  "Final public submission must replace pending live Arkiv references",
+  "Live Braga evidence captured: May 26, 2026.",
+  "data/live-write-result.json",
   "deployed Braga write as the source of truth",
   "they are not the submitted public database",
   "## Live / Configured / Roadmap",
@@ -538,6 +539,7 @@ for (const expected of [
   "docs/BRAGA_TEST_WALLET_SETUP.md",
   "docs/screenshots/ui-desktop-bundled.png",
   "docs/screenshots/ui-mobile-bundled.png",
+  "docs/screenshots/live-query-complete.png",
 ]) {
   if (!normalizedReadmeText.includes(expected)) {
     failures.push(`public README draft missing live evidence phrase: ${expected}`);

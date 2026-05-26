@@ -32,9 +32,12 @@ Public repository: https://github.com/Devpen787/proofforge-lite-arkiv
 
 Deployed demo: https://proofforge-lite-arkiv.vercel.app
 
-This README separates live, configured, and roadmap claims. Final public
-submission must replace pending live Arkiv references with real entity keys,
-transaction hashes, owner, creator, and verifier output.
+Live Braga evidence captured: May 26, 2026.
+
+This README separates live, configured, and roadmap claims. The current live
+evidence is included in `data/live-write-result.json` and verifies real Arkiv
+entity keys, transaction hashes, owner, creator, and project-scoped query
+output.
 
 ## What It Demonstrates
 
@@ -75,6 +78,10 @@ Desktop:
 Mobile:
 
 ![Mobile ProofForge Lite app](docs/screenshots/ui-mobile-bundled.png)
+
+Live query evidence:
+
+![Live Braga query complete](docs/screenshots/live-query-complete.png)
 
 ## Arkiv Integration
 
@@ -231,19 +238,22 @@ Not published:
 
 ## Live / Configured / Roadmap
 
-Live in the local package:
+Live:
 
 - public-safe receipt generation;
 - deterministic schema/redaction verification;
 - bundled five-step ProofForge Lite app surface.
-
-Configured for the final app:
-
 - Arkiv Braga write/query adapter using `@arkiv-network/sdk`;
 - wallet-gated entity creation with Braga chain switch/add handling;
 - query views by project, status, source, relationship, and time range;
 - durable public app data modeled as `proof_workspace`, `work_item`,
-  `proof_packet_summary`, and `review_event` Arkiv entities after live write.
+  `proof_packet_summary`, and `review_event` Arkiv entities after live write;
+- live Braga evidence in `data/live-write-result.json`.
+
+Configured for final submission:
+
+- demo video recording;
+- final Network School task and Arkiv form metadata.
 
 Roadmap:
 
@@ -275,9 +285,6 @@ load `web/index.html`, `web/styles.css`, and `web/app.bundle.js`, and connect to
 Arkiv Braga from the browser with the approved wallet. No server secrets or
 private ProofForge files are required for deployment.
 
-Before final submission, replace pending live Arkiv references with entity
-keys, transaction hashes, owner, creator, and verifier output.
-
 Live submission setup:
 
 1. Connect an EVM wallet to Braga testnet.
@@ -288,8 +295,8 @@ Live submission setup:
 5. Click `Query Braga` after the write completes if the app has not already
    refreshed query evidence. Query by project, status, source, relationship,
    and time.
-6. Click `Copy live result` and save the live write/query output in the
-   `data/live-write-result.example.json` shape.
+6. Click `Copy live result` and save the live write/query output as
+   `data/live-write-result.json`.
 7. Validate the real live write/query result:
 
 ```bash
