@@ -26,75 +26,83 @@
       <section class="hero">
         <div class="hero-copy">
           <p class="label">Public proof memory</p>
-          <h2>Private agent work. Public Arkiv proof trail.</h2>
+          <h2>Private agent work. Public Arkiv proof.</h2>
           <p>
-            Convert a private ProofForge work item into wallet-owned Arkiv
-            entities that reviewers can query without seeing the workspace.
+            A focused Arkiv-native workflow where private work becomes
+            wallet-owned, queryable proof without exposing the private workspace.
           </p>
-          <div class="proof-metrics" aria-label="ProofForge Lite proof state">
-            <span><small>Proof node</small><strong>bounded local runner</strong></span>
-            <span><small>Arkiv Braga</small><strong>6 records / 4 types</strong></span>
-            <span><small>Reviewer read</small><strong>public project queries</strong></span>
-          </div>
           <div class="actions">
-            <button id="buildPacket" class="button primary" type="button">
-              Build proof packet
+            <button id="runProofPath" class="button primary" type="button">
+              Run proof path
             </button>
             <button id="inspectSchema" class="button ghost" type="button">
-              Inspect Arkiv schema
+              Show evidence
             </button>
             <button id="queryArkiv" class="button secondary" type="button">
               Query Braga
             </button>
           </div>
         </div>
-        <aside class="state-card" aria-live="polite">
-          <p class="label">Current work item</p>
+        <aside class="mission-console" aria-live="polite">
+          <p class="label">Mission</p>
           <strong id="activeWorkTitle">Loading</strong>
           <span id="activeWorkMeta">Configured locally</span>
-          <hr />
-          <p class="label">State</p>
-          <strong id="stateLabel">Configured locally</strong>
-          <span id="stateDetail">
-            Public reads are open. Wallet approval is only required for Braga writes.
-          </span>
+          <dl>
+            <div>
+              <dt>Run state</dt>
+              <dd id="stateLabel">Configured locally</dd>
+            </div>
+            <div>
+              <dt>Boundary</dt>
+              <dd id="stateDetail">Public reads are open. Wallet approval is only required for Braga writes.</dd>
+            </div>
+          </dl>
           <code id="walletDiagnostic" class="wallet-diagnostic technical-only">
             wallet=not_connected chain=unknown
           </code>
         </aside>
       </section>
 
-      <section class="proof-path" aria-label="Agent operations proof path">
-        <span><small>1</small>Work lead</span>
-        <span><small>2</small>Mission gate</span>
-        <span><small>3</small>Proof node</span>
-        <span><small>4</small>Case file</span>
-        <span><small>5</small>Public proof</span>
+      <section class="proof-path" aria-label="ProofForge Lite protocol strip">
+        <span><small>01</small>Work</span>
+        <span><small>02</small>Preflight</span>
+        <span><small>03</small>Proof node</span>
+        <span><small>04</small>Arkiv memory</span>
+        <span><small>05</small>Verify</span>
       </section>
 
-      <section class="arkiv-role-grid ops-grid" aria-label="ProofForge agent operations state">
-        <article>
-          <p class="label">Active mission</p>
-          <strong>Arkiv challenge proof packet is ready for operator review.</strong>
-        </article>
-        <article>
+      <section class="protocol-panel" aria-label="Live ProofForge Lite system">
+        <div class="protocol-row">
+          <p class="label">Mission</p>
+          <strong>Arkiv ETHNS Web3 Database Builder Challenge</strong>
+          <span>Selected work item, public-safe only.</span>
+        </div>
+        <div class="protocol-row">
+          <p class="label">Run state</p>
+          <strong>Ready for Braga proof write</strong>
+          <span>No final submission or prize claim has been made.</span>
+        </div>
+        <div class="protocol-row">
           <p class="label">Proof node</p>
-          <strong>Runner, verifier, and packager are bounded before any public action.</strong>
-        </article>
-        <article>
-          <p class="label">Reviewer</p>
-          <strong>Arkiv reviewers can inspect public proof without workspace access.</strong>
-        </article>
-        <article>
-          <p class="label">Value state</p>
-          <strong>Ready for submission; no prize, payout, or acceptance claimed.</strong>
-        </article>
+          <strong>runner passed · verifier passed · packager ready · human approval required</strong>
+          <span>Private notes, secrets, payout setup, and final submission stay blocked.</span>
+        </div>
+        <div class="protocol-row">
+          <p class="label">Arkiv memory</p>
+          <strong>6 records · 4 entity types · project=proofforge-lite-arkiv-ethns-2026</strong>
+          <span>Wallet-owned public proof memory on Braga.</span>
+        </div>
+        <div class="protocol-row">
+          <p class="label">Verify</p>
+          <strong>owner/creator · relationships · tx hashes · query counts</strong>
+          <span>Reviewer reads project-scoped proof without workspace access.</span>
+        </div>
       </section>
 
       <nav class="step-tabs" aria-label="ProofForge Lite flow">
         <button class="step-tab active" data-step="work" type="button">Work</button>
         <button class="step-tab" data-step="preflight" type="button">Preflight</button>
-        <button class="step-tab" data-step="packet" type="button">Proof Packet</button>
+        <button class="step-tab" data-step="packet" type="button">Proof Node</button>
         <button class="step-tab" data-step="memory" type="button">Arkiv Memory</button>
         <button class="step-tab" data-step="verify" type="button">Verify</button>
       </nav>
@@ -102,8 +110,8 @@
       <section class="step-panel active" data-step="work">
         <div class="section-head">
           <div>
-            <p class="label">Work queue</p>
-            <h3>Source-backed work becomes public proof memory.</h3>
+            <p class="label">Work</p>
+            <h3>Selected mission plus public-safe queue.</h3>
           </div>
           <span class="status-pill">3 public-safe items</span>
         </div>
@@ -111,54 +119,42 @@
       </section>
 
       <section class="step-panel" data-step="preflight">
-        <div class="split-grid">
+        <div class="focused-surface">
           <article class="panel">
             <p class="label">Proof preflight</p>
             <h3>Run only if the proof target is bounded.</h3>
             <div class="fact-grid">
               <span><small>Acceptance</small><strong>Arkiv reviewers</strong></span>
               <span><small>Required proof</small><strong>repo + Braga demo + live refs</strong></span>
-              <span><small>Boundary</small><strong>no private notes or secrets</strong></span>
               <span><small>Approval gate</small><strong>writes and submission are explicit</strong></span>
+              <span><small>Boundary</small><strong>no private notes or secrets</strong></span>
             </div>
-          </article>
-          <article class="panel">
-            <p class="label">Bounded proof node</p>
-            <h3>Explicit tools, explicit blocks.</h3>
             <div class="boundary-grid">
-              <span>Runner: local checks</span>
-              <span>Verifier: schema + privacy</span>
-              <span>Packager: public-safe packet</span>
-              <span>Human: wallet approval</span>
-              <span>Blocked: submissions</span>
+              <span>Allowed: local checks</span>
+              <span>Allowed: public-safe packet</span>
+              <span>Blocked: final submission</span>
               <span>Blocked: wallet writes before approval</span>
-              <span>Blocked: private notes</span>
             </div>
           </article>
         </div>
       </section>
 
       <section class="step-panel" data-step="packet">
-        <div class="split-grid">
+        <div class="focused-surface">
           <article class="panel">
-            <p class="label">Proof packet</p>
-            <h3>Only public-safe facts become payloads.</h3>
+            <p class="label">Proof node</p>
+            <h3>Runner to verifier to public-safe packet.</h3>
+            <div id="proofRunTrace" class="run-trace" aria-label="Proof node lifecycle"></div>
             <div class="packet-list">
               <span>Challenge requirements checked</span>
               <span>Artifact hashes included</span>
               <span>Risk and evidence counts included</span>
               <span>Private transcripts excluded</span>
             </div>
-            <div id="proofRunTrace" class="run-trace" aria-label="Proof node lifecycle"></div>
-          </article>
-          <article class="panel">
-            <p class="label">Review event</p>
-            <h3>Human decision state is linked to the packet.</h3>
-            <div class="fact-grid">
-              <span><small>Decision</small><strong>ready for submission</strong></span>
-              <span><small>Claim boundary</small><strong>no prize claimed</strong></span>
-              <span><small>Relationship</small><strong>work item + packet</strong></span>
-              <span><small>Verifier</small><strong>deterministic CLI</strong></span>
+            <div class="actions compact-actions">
+              <button id="buildPacket" class="button primary small" type="button">
+                Build proof packet
+              </button>
             </div>
           </article>
         </div>
@@ -178,7 +174,7 @@
       </section>
 
       <section class="step-panel" data-step="verify">
-        <div class="split-grid">
+        <div class="focused-surface">
           <article class="panel">
             <p class="label">Project-scoped queries</p>
             <h3>Reviewer reads proof history without workspace access.</h3>
@@ -190,10 +186,14 @@
               <span>review events by workspace</span>
               <span>review events by work item</span>
             </div>
-          </article>
-          <article class="panel">
-            <p class="label">Reusable verifier</p>
-            <h3>Receipt checks schema, relationships, privacy, and live refs.</h3>
+            <div class="terminal-block">
+              <code>RECEIPT_PATH=out/live-proof-memory-receipt.json npm run verify</code>
+              <span>project scope ok</span>
+              <span>relationships ok</span>
+              <span>owner/creator ok</span>
+              <span>tx hashes ok</span>
+              <span>privacy boundary ok</span>
+            </div>
             <div class="actions compact-actions">
               <button id="copyReceipt" class="button secondary small" type="button">
                 Copy receipt JSON

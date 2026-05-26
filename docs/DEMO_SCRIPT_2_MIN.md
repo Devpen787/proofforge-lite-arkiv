@@ -93,9 +93,9 @@ Say:
 > local checks, verify schema and privacy, and package evidence. Human approval
 > stays in front of public writes and submissions.
 
-## 0:48-1:05 - Proof Packet
+## 0:48-1:05 - Proof Node
 
-Move: click `Proof Packet`, then click `Build proof packet`.
+Move: click `Proof Node`, then click `Build proof packet`.
 
 Say:
 

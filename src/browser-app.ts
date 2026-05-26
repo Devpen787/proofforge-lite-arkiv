@@ -110,6 +110,7 @@ const walletDiagnostic = requiredElement<HTMLElement>("#walletDiagnostic");
 const technicalEvidence = requiredElement<HTMLDetailsElement>("#technicalEvidence");
 const storyMode = requiredElement<HTMLButtonElement>("#storyMode");
 const evidenceMode = requiredElement<HTMLButtonElement>("#evidenceMode");
+const runProofPath = requiredElement<HTMLButtonElement>("#runProofPath");
 
 let walletClient: Awaited<ReturnType<typeof createBrowserWalletClient>> | undefined;
 let latestLiveWriteResult: unknown;
@@ -336,10 +337,8 @@ function renderEvidenceSummary(value: unknown, title: string) {
   }
 
   evidenceSummary.innerHTML = [
-    summaryCard("Active mission", selectedWorkItem.title),
-    summaryCard("Proof node", "bounded local runner"),
-    summaryCard("Arkiv target", `${receipt.entities.length} records / 4 types`),
-    summaryCard("Reviewer read", "public project queries", "accent"),
+    summaryCard("Mission", selectedWorkItem.title),
+    summaryCard("Protocol state", "configured · write gated · query public", "accent"),
   ].join("");
 }
 
@@ -507,6 +506,11 @@ connectWallet.addEventListener("click", async () => {
   } catch (error) {
     setState("Wallet not connected", error instanceof Error ? error.message : String(error));
   }
+});
+
+runProofPath.addEventListener("click", () => {
+  setState("Proof path active", "Start with preflight, then build the public-safe proof packet.");
+  showStep("preflight");
 });
 
 requiredElement<HTMLButtonElement>("#buildPacket").addEventListener("click", () => {

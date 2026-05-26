@@ -87,26 +87,27 @@ async function runViewport(page, viewport, label) {
   );
   const proofPathText = ((await page.locator(".proof-path").first().textContent()) ?? "").replace(/\s+/g, " ");
   assert(
-    proofPathText.includes("Work lead") &&
-      proofPathText.includes("Mission gate") &&
+    proofPathText.includes("01Work") &&
+      proofPathText.includes("02Preflight") &&
       proofPathText.includes("Proof node") &&
-      proofPathText.includes("Case file") &&
-      proofPathText.includes("Public proof"),
+      proofPathText.includes("Arkiv memory") &&
+      proofPathText.includes("Verify"),
     `${label} proof path strip is missing the agent-ops proof story`,
   );
-  const arkivRoleCount = await page.locator(".arkiv-role-grid article").count();
-  assert(arkivRoleCount === 4, `${label} expected 4 Arkiv role cards, found ${arkivRoleCount}`);
+  const protocolRowCount = await page.locator(".protocol-panel .protocol-row").count();
+  assert(protocolRowCount === 5, `${label} expected 5 protocol rows, found ${protocolRowCount}`);
 
   for (const [step, panel, heading] of [
-    ["Work", "work", "Source-backed work"],
+    ["Work", "work", "Selected mission"],
     ["Preflight", "preflight", "Run only if"],
-    ["Proof Packet", "packet", "Only public-safe facts"],
+    ["Proof Node", "packet", "Runner to verifier"],
     ["Arkiv Memory", "memory", "Six Arkiv records"],
     ["Verify", "verify", "Reviewer reads proof history"],
   ]) {
     await clickStep(page, step, panel, heading);
   }
 
+  await page.getByRole("button", { name: "Proof Node", exact: true }).click();
   await page.getByRole("button", { name: "Build proof packet", exact: true }).click();
   await page.waitForTimeout(50);
   const packetText = (await page.locator("#receiptOutput").textContent()) ?? "";
@@ -114,7 +115,7 @@ async function runViewport(page, viewport, label) {
   assert(packetText.includes("every durable public ProofForge Lite record"), `${label} packet omits Arkiv durable-data claim`);
   assert(packetText.includes("proof_packet_summary.workItemKey -> work_item.$key"), `${label} packet omits work item relationship`);
 
-  await page.getByRole("button", { name: "Inspect Arkiv schema", exact: true }).click();
+  await page.getByRole("button", { name: "Show evidence", exact: true }).click();
   await page.waitForTimeout(50);
   const schemaText = (await page.locator("#receiptOutput").textContent()) ?? "";
   assert(schemaText.includes("work_item"), `${label} schema omits work_item`);

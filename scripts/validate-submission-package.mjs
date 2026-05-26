@@ -487,11 +487,11 @@ if (!html.includes("copyLiveResult")) {
 for (const expected of [
   "Work",
   "Preflight",
-  "Proof Packet",
+  "Proof Node",
   "Arkiv Memory",
   "Verify",
   "Public proof memory",
-  "Private agent work. Public Arkiv proof trail.",
+  "Private agent work. Public Arkiv proof.",
   "Write Arkiv entities",
   "Copy live result",
 ]) {

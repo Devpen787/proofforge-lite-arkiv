@@ -19946,6 +19946,7 @@ var walletDiagnostic = requiredElement("#walletDiagnostic");
 var technicalEvidence = requiredElement("#technicalEvidence");
 var storyMode = requiredElement("#storyMode");
 var evidenceMode = requiredElement("#evidenceMode");
+var runProofPath = requiredElement("#runProofPath");
 var walletClient;
 var latestLiveWriteResult;
 var connectedAccount = "";
@@ -20126,10 +20127,8 @@ function renderEvidenceSummary(value, title) {
     return;
   }
   evidenceSummary.innerHTML = [
-    summaryCard("Active mission", selectedWorkItem.title),
-    summaryCard("Proof node", "bounded local runner"),
-    summaryCard("Arkiv target", `${receipt.entities.length} records / 4 types`),
-    summaryCard("Reviewer read", "public project queries", "accent")
+    summaryCard("Mission", selectedWorkItem.title),
+    summaryCard("Protocol state", "configured \xB7 write gated \xB7 query public", "accent")
   ].join("");
 }
 function safeJsonStringify(value) {
@@ -20268,6 +20267,10 @@ connectWallet.addEventListener("click", async () => {
   } catch (error) {
     setState("Wallet not connected", error instanceof Error ? error.message : String(error));
   }
+});
+runProofPath.addEventListener("click", () => {
+  setState("Proof path active", "Start with preflight, then build the public-safe proof packet.");
+  showStep("preflight");
 });
 requiredElement("#buildPacket").addEventListener("click", () => {
   setState("Proof packet ready", "Public-safe packet is prepared. Arkiv write remains approval-gated.");
