@@ -631,11 +631,13 @@ const demoScript2Min = fs.readFileSync(
 );
 for (const expected of [
   "# 2-Minute Screen-Share Demo Script",
-  "## 0:00-0:12 - First View",
-  "## 0:25-0:42 - Preflight",
-  "## 1:00-1:25 - Arkiv Memory",
-  "ProofForge Lite writes six records across four",
-  "Keep narration under 260 spoken words.",
+  "## Demo Thesis",
+  "Useful agent work is private, but useful proof needs to be public.",
+  "## 0:00-0:20 - Context And Promise",
+  "## 0:32-0:48 - Preflight",
+  "## 1:05-1:30 - Arkiv Memory",
+  "Arkiv is great for this because it is not just storage.",
+  "Keep narration near 285 spoken words.",
 ]) {
   if (!demoScript2Min.includes(expected)) {
     failures.push(`DEMO_SCRIPT_2_MIN.md missing phrase: ${expected}`);

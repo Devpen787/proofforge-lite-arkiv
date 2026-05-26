@@ -15,27 +15,52 @@ drafts.
 - Use `Story` mode for the product walkthrough. Use `Evidence` mode only for a
   brief receipt close-up if there is time.
 
-## 0:00-0:12 - First View
+## Demo Thesis
+
+Problem:
+
+```text
+Useful agent work is private, but useful proof needs to be public.
+```
+
+Why Arkiv:
+
+```text
+Arkiv gives the public proof layer: wallet-owned records, immutable creator
+attribution, typed attributes, project-scoped queries, relationships, and
+expiration windows.
+```
+
+What the demo proves:
+
+```text
+private work item -> redacted proof packet -> six Arkiv Braga records ->
+project-scoped queries -> deterministic verifier receipt
+```
+
+## 0:00-0:20 - Context And Promise
 
 Move: show the first viewport without clicking.
 
 Say:
 
-> This is ProofForge Lite, powered by Arkiv. It turns private agent-assisted
-> work into wallet-owned public proof memory. The private workspace stays
-> private; Arkiv stores the public proof trail reviewers can query.
+> Most useful AI work happens in private: notes, approvals, source checks, and
+> draft decisions. But judges or clients still need proof without seeing that
+> workspace. ProofForge Lite demonstrates the missing layer: Arkiv as public
+> proof memory. In two minutes I’ll show one private work item becoming
+> redacted, wallet-owned, queryable Arkiv records.
 
-## 0:12-0:25 - Work
+## 0:20-0:32 - Work
 
 Move: leave `Work` selected and point to the active Arkiv challenge work item.
 
 Say:
 
 > The active work item is this Arkiv ETHNS challenge. ProofForge Lite keeps a
-> public-safe work queue, so the reviewer sees source, status, risk, and next
-> action without seeing private opportunity notes.
+> public-safe work queue, so reviewers see source, status, risk, and next
+> action, not private notes.
 
-## 0:25-0:42 - Preflight
+## 0:32-0:48 - Preflight
 
 Move: click `Preflight`.
 
@@ -43,20 +68,20 @@ Say:
 
 > Before anything public happens, the mission gate checks acceptance owner,
 > required proof, privacy boundary, and approval gates. The proof node can run
-> local checks, verify schema and privacy, and package evidence. It cannot
-> submit, leak private notes, or write to Arkiv without human approval.
+> local checks, verify schema and privacy, and package evidence. It cannot leak
+> private notes or write to Arkiv without human approval.
 
-## 0:42-1:00 - Proof Packet
+## 0:48-1:05 - Proof Packet
 
 Move: click `Proof Packet`, then click `Build proof packet`.
 
 Say:
 
 > This creates the redacted case file. It includes challenge requirements,
-> artifact hashes, status, risk, and the runner-verifier-packager trace. It
-> excludes private notes, secrets, drafts, logs, and account material.
+> artifact hashes, status, risk, and the runner-verifier-packager trace. The
+> private workspace, secrets, drafts, logs, and account material are excluded.
 
-## 1:00-1:25 - Arkiv Memory
+## 1:05-1:30 - Arkiv Memory
 
 Move: click `Arkiv Memory`. If the wallet is already connected, click
 `Write Arkiv entities`; otherwise point to the gated write button and click
@@ -64,12 +89,13 @@ Move: click `Arkiv Memory`. If the wallet is already connected, click
 
 Say:
 
-> Arkiv is load-bearing here. ProofForge Lite writes six records across four
-> entity types: workspace, work items, proof packet, and review event. Every
-> entity and every query uses the same project attribute, and relationships are
-> linked by shared Arkiv keys.
+> Arkiv is great for this because it is not just storage. It gives us public,
+> wallet-owned, queryable records with owner and creator metadata. ProofForge
+> Lite writes six Braga records across four entity types: workspace, work
+> items, proof packet, and review event. Every entity and query uses the same
+> project attribute, and relationships are linked by Arkiv keys.
 
-## 1:25-1:45 - Verify
+## 1:30-1:50 - Verify
 
 Move: click `Verify`, then click `Query Braga` if you have not already queried.
 Show the summary cards, not raw JSON.
@@ -81,7 +107,7 @@ Say:
 > entity keys, transaction hashes, owner, creator, relationships, and the
 > public-private boundary.
 
-## 1:45-2:00 - Close
+## 1:50-2:00 - Close
 
 Move: return to `Arkiv Memory` or `Verify` and keep the live evidence summary in
 view.
@@ -98,6 +124,7 @@ Say:
   restart after the live evidence is ready.
 - If you need to save time, skip the terminal verifier and say the verifier is
   included in the public repo.
-- Keep narration under 260 spoken words.
+- Keep narration near 285 spoken words. Speak briskly, or skip the terminal
+  verifier mention if needed.
 - Do not mention earnings as completed, prizes as won, or final submission as
   done unless that has actually happened.

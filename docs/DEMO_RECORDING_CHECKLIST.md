@@ -25,7 +25,7 @@ The judge should understand the product before any terminal command appears.
 
 ## Required Recording Beats
 
-1. First view: show proof node, Arkiv Braga state, and reviewer read path.
+1. First view: state the problem, why Arkiv matters, and what the demo proves.
 2. Work: show the selected Arkiv challenge work item and the public-safe Work
    queue.
 3. Preflight: show acceptance owner, required proof, privacy boundary, blocked
@@ -40,13 +40,13 @@ The judge should understand the product before any terminal command appears.
 
 | Segment | Target |
 | --- | ---: |
-| First view | 0:12 |
-| Work | 0:13 |
-| Preflight | 0:17 |
-| Proof Packet | 0:18 |
+| Context and promise | 0:20 |
+| Work | 0:12 |
+| Preflight | 0:16 |
+| Proof Packet | 0:17 |
 | Arkiv Memory | 0:25 |
 | Verify | 0:20 |
-| Close | 0:15 |
+| Close | 0:10 |
 
 If a wallet prompt or transaction confirmation takes too long, restart the
 recording after the transaction is ready. The submitted video should show the
