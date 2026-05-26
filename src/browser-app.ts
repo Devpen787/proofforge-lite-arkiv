@@ -96,6 +96,7 @@ const stepPanels = Array.from(document.querySelectorAll<HTMLElement>(".step-pane
 const workRows = requiredElement<HTMLDivElement>("#workRows");
 const entityList = requiredElement<HTMLDivElement>("#entityList");
 const receiptOutput = requiredElement<HTMLPreElement>("#receiptOutput");
+const evidenceSummary = requiredElement<HTMLDivElement>("#evidenceSummary");
 const stateLabel = requiredElement<HTMLElement>("#stateLabel");
 const stateDetail = requiredElement<HTMLElement>("#stateDetail");
 const activeWorkTitle = requiredElement<HTMLElement>("#activeWorkTitle");
@@ -105,10 +106,14 @@ const liveWrite = requiredElement<HTMLButtonElement>("#liveWrite");
 const copyLiveResult = requiredElement<HTMLButtonElement>("#copyLiveResult");
 const queryArkiv = requiredElement<HTMLButtonElement>("#queryArkiv");
 const walletDiagnostic = requiredElement<HTMLElement>("#walletDiagnostic");
+const technicalEvidence = requiredElement<HTMLDetailsElement>("#technicalEvidence");
+const storyMode = requiredElement<HTMLButtonElement>("#storyMode");
+const evidenceMode = requiredElement<HTMLButtonElement>("#evidenceMode");
 
 let walletClient: Awaited<ReturnType<typeof createBrowserWalletClient>> | undefined;
 let latestLiveWriteResult: unknown;
 let connectedAccount = "";
+let currentMode: "story" | "evidence" = "story";
 
 function requiredElement<T extends Element>(selector: string): T {
   const element = document.querySelector(selector);
@@ -173,6 +178,14 @@ function showStep(step: string) {
   }
 }
 
+function setMode(mode: "story" | "evidence") {
+  currentMode = mode;
+  document.body.dataset.mode = mode;
+  storyMode.classList.toggle("active", mode === "story");
+  evidenceMode.classList.toggle("active", mode === "evidence");
+  technicalEvidence.open = mode === "evidence";
+}
+
 function attributesByKey(entity: (typeof receipt.entities)[number]) {
   return Object.fromEntries(
     entity.attributes.map((attribute) => [attribute.key, attribute.value]),
@@ -200,7 +213,7 @@ function renderWorkRows() {
 
 function renderEntityList() {
   entityList.innerHTML = receipt.entities
-    .map((entity) => {
+    .map((entity, index) => {
       const attrs = attributesByKey(entity);
       const relationship =
         entity.entityType === "proof_workspace"
@@ -212,10 +225,11 @@ function renderEntityList() {
               : "links to packet + work item";
       return `
         <article class="entity-card">
+          <em>${index + 1}</em>
           <strong>${entity.entityType}</strong>
           <span>${relationship}</span>
-          <small>${PROJECT_ATTRIBUTE.key}=${PROJECT_ATTRIBUTE.value}</small>
-          <small>status=${String(attrs.status ?? attrs.workspaceSlug ?? "active")}</small>
+          <small>${String(attrs.status ?? attrs.workspaceSlug ?? "active")}</small>
+          <code class="technical-only">${PROJECT_ATTRIBUTE.key}=${PROJECT_ATTRIBUTE.value}</code>
         </article>
       `;
     })
@@ -225,6 +239,86 @@ function renderEntityList() {
 function setReceiptView(value: unknown, title = "Verifier receipt") {
   requiredElement<HTMLElement>("#detailsTitle").textContent = title;
   receiptOutput.textContent = safeJsonStringify(value);
+  renderEvidenceSummary(value, title);
+}
+
+function summaryCard(label: string, value: string, tone = "") {
+  return `
+    <article class="summary-card ${tone}">
+      <small>${label}</small>
+      <strong>${value}</strong>
+    </article>
+  `;
+}
+
+function compactRef(value: unknown) {
+  if (typeof value !== "string") {
+    return "not available";
+  }
+  return value.startsWith("0x") && value.length > 18
+    ? `${value.slice(0, 10)}...${value.slice(-6)}`
+    : value;
+}
+
+function renderEvidenceSummary(value: unknown, title: string) {
+  if (title === "Proof packet") {
+    evidenceSummary.innerHTML = [
+      summaryCard("Work item", selectedWorkItem.title),
+      summaryCard("Public proof", "requirements + hashes + status"),
+      summaryCard("Private boundary", `${packet.privateFieldsExcluded.length} fields excluded`, "quiet"),
+      summaryCard("Next action", "write linked Arkiv entities", "accent"),
+    ].join("");
+    return;
+  }
+
+  if (title === "Arkiv schema") {
+    evidenceSummary.innerHTML = [
+      summaryCard("Project scope", PROJECT_ATTRIBUTE.value),
+      summaryCard("Entity model", "workspace, work, packet, review"),
+      summaryCard("Relationships", "workspace + work item keys"),
+      summaryCard("Queries", `${REQUIRED_QUERIES.length} required paths`, "accent"),
+    ].join("");
+    return;
+  }
+
+  if (title === "Live Arkiv write receipt" && value && typeof value === "object") {
+    const protocolRefs = (value as { protocolRefs?: Record<string, unknown> }).protocolRefs ?? {};
+    const txHashes = Array.isArray(protocolRefs.txHashes) ? protocolRefs.txHashes : [];
+    const queryEvidence =
+      protocolRefs.queryEvidence && typeof protocolRefs.queryEvidence === "object"
+        ? protocolRefs.queryEvidence
+        : {};
+    const queryCount = Object.values(queryEvidence).filter((count) => Number(count) > 0).length;
+    evidenceSummary.innerHTML = [
+      summaryCard("Arkiv state", "write complete", "accent"),
+      summaryCard("Workspace entity", compactRef(protocolRefs.proofWorkspaceEntityKey)),
+      summaryCard("Proof packet entity", compactRef(protocolRefs.proofPacketEntityKey)),
+      summaryCard("Transactions", `${txHashes.length} Braga writes`),
+      summaryCard("Owner / creator", compactRef(protocolRefs.owner)),
+      summaryCard("Queries verified", `${queryCount} paths returned evidence`, "accent"),
+    ].join("");
+    return;
+  }
+
+  if (title === "Arkiv query result" && value && typeof value === "object") {
+    const result = value as Record<string, unknown>;
+    evidenceSummary.innerHTML = [
+      summaryCard("Work queue", `${Number(result.workItemsByProjectCount ?? 0)} records`),
+      summaryCard("Ready work", `${Number(result.workItemsByStatusCount ?? 0)} record`),
+      summaryCard("Packet status", `${Number(result.byStatusCount ?? 0)} record`),
+      summaryCard("Source type", `${Number(result.bySourceCount ?? 0)} record`),
+      summaryCard("Time range", `${Number(result.recentCount ?? 0)} record`),
+      summaryCard("Reviewer view", "project-scoped public proof", "accent"),
+    ].join("");
+    return;
+  }
+
+  evidenceSummary.innerHTML = [
+    summaryCard("Primitive", "public proof memory"),
+    summaryCard("Network", "Arkiv Braga"),
+    summaryCard("Entity types", `${receipt.entities.length} planned records`),
+    summaryCard("Verifier", "deterministic CLI", "accent"),
+  ].join("");
 }
 
 function safeJsonStringify(value: unknown) {
@@ -528,9 +622,13 @@ for (const tab of stepTabs) {
   tab.addEventListener("click", () => showStep(tab.dataset.step ?? "work"));
 }
 
+storyMode.addEventListener("click", () => setMode("story"));
+evidenceMode.addEventListener("click", () => setMode("evidence"));
+
 activeWorkTitle.textContent = selectedWorkItem.title;
 activeWorkMeta.textContent = `${selectedWorkItem.source} · ${selectedWorkItem.status.replaceAll("_", " ")}`;
 renderWorkRows();
 renderEntityList();
 setReceiptView(receipt);
+setMode(currentMode);
 showStep("work");

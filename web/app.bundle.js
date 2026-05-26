@@ -19925,6 +19925,7 @@ var stepPanels = Array.from(document.querySelectorAll(".step-panel"));
 var workRows = requiredElement("#workRows");
 var entityList = requiredElement("#entityList");
 var receiptOutput = requiredElement("#receiptOutput");
+var evidenceSummary = requiredElement("#evidenceSummary");
 var stateLabel = requiredElement("#stateLabel");
 var stateDetail = requiredElement("#stateDetail");
 var activeWorkTitle = requiredElement("#activeWorkTitle");
@@ -19934,9 +19935,13 @@ var liveWrite = requiredElement("#liveWrite");
 var copyLiveResult = requiredElement("#copyLiveResult");
 var queryArkiv = requiredElement("#queryArkiv");
 var walletDiagnostic = requiredElement("#walletDiagnostic");
+var technicalEvidence = requiredElement("#technicalEvidence");
+var storyMode = requiredElement("#storyMode");
+var evidenceMode = requiredElement("#evidenceMode");
 var walletClient;
 var latestLiveWriteResult;
 var connectedAccount = "";
+var currentMode = "story";
 function requiredElement(selector) {
   const element = document.querySelector(selector);
   if (!element) {
@@ -19988,6 +19993,13 @@ function showStep(step) {
     panel.classList.toggle("active", panel.dataset.step === step);
   }
 }
+function setMode(mode) {
+  currentMode = mode;
+  document.body.dataset.mode = mode;
+  storyMode.classList.toggle("active", mode === "story");
+  evidenceMode.classList.toggle("active", mode === "evidence");
+  technicalEvidence.open = mode === "evidence";
+}
 function attributesByKey(entity) {
   return Object.fromEntries(
     entity.attributes.map((attribute) => [attribute.key, attribute.value])
@@ -20010,15 +20022,16 @@ function renderWorkRows() {
   }).join("");
 }
 function renderEntityList() {
-  entityList.innerHTML = receipt.entities.map((entity) => {
+  entityList.innerHTML = receipt.entities.map((entity, index2) => {
     const attrs = attributesByKey(entity);
     const relationship = entity.entityType === "proof_workspace" ? "root namespace" : entity.entityType === "work_item" ? "links to proof workspace" : entity.entityType === "proof_packet_summary" ? "links to workspace + work item" : "links to packet + work item";
     return `
         <article class="entity-card">
+          <em>${index2 + 1}</em>
           <strong>${entity.entityType}</strong>
           <span>${relationship}</span>
-          <small>${PROJECT_ATTRIBUTE.key}=${PROJECT_ATTRIBUTE.value}</small>
-          <small>status=${String(attrs.status ?? attrs.workspaceSlug ?? "active")}</small>
+          <small>${String(attrs.status ?? attrs.workspaceSlug ?? "active")}</small>
+          <code class="technical-only">${PROJECT_ATTRIBUTE.key}=${PROJECT_ATTRIBUTE.value}</code>
         </article>
       `;
   }).join("");
@@ -20026,6 +20039,74 @@ function renderEntityList() {
 function setReceiptView(value, title = "Verifier receipt") {
   requiredElement("#detailsTitle").textContent = title;
   receiptOutput.textContent = safeJsonStringify(value);
+  renderEvidenceSummary(value, title);
+}
+function summaryCard(label, value, tone = "") {
+  return `
+    <article class="summary-card ${tone}">
+      <small>${label}</small>
+      <strong>${value}</strong>
+    </article>
+  `;
+}
+function compactRef(value) {
+  if (typeof value !== "string") {
+    return "not available";
+  }
+  return value.startsWith("0x") && value.length > 18 ? `${value.slice(0, 10)}...${value.slice(-6)}` : value;
+}
+function renderEvidenceSummary(value, title) {
+  if (title === "Proof packet") {
+    evidenceSummary.innerHTML = [
+      summaryCard("Work item", selectedWorkItem.title),
+      summaryCard("Public proof", "requirements + hashes + status"),
+      summaryCard("Private boundary", `${public_safe_packet_default.privateFieldsExcluded.length} fields excluded`, "quiet"),
+      summaryCard("Next action", "write linked Arkiv entities", "accent")
+    ].join("");
+    return;
+  }
+  if (title === "Arkiv schema") {
+    evidenceSummary.innerHTML = [
+      summaryCard("Project scope", PROJECT_ATTRIBUTE.value),
+      summaryCard("Entity model", "workspace, work, packet, review"),
+      summaryCard("Relationships", "workspace + work item keys"),
+      summaryCard("Queries", `${REQUIRED_QUERIES.length} required paths`, "accent")
+    ].join("");
+    return;
+  }
+  if (title === "Live Arkiv write receipt" && value && typeof value === "object") {
+    const protocolRefs = value.protocolRefs ?? {};
+    const txHashes = Array.isArray(protocolRefs.txHashes) ? protocolRefs.txHashes : [];
+    const queryEvidence = protocolRefs.queryEvidence && typeof protocolRefs.queryEvidence === "object" ? protocolRefs.queryEvidence : {};
+    const queryCount = Object.values(queryEvidence).filter((count) => Number(count) > 0).length;
+    evidenceSummary.innerHTML = [
+      summaryCard("Arkiv state", "write complete", "accent"),
+      summaryCard("Workspace entity", compactRef(protocolRefs.proofWorkspaceEntityKey)),
+      summaryCard("Proof packet entity", compactRef(protocolRefs.proofPacketEntityKey)),
+      summaryCard("Transactions", `${txHashes.length} Braga writes`),
+      summaryCard("Owner / creator", compactRef(protocolRefs.owner)),
+      summaryCard("Queries verified", `${queryCount} paths returned evidence`, "accent")
+    ].join("");
+    return;
+  }
+  if (title === "Arkiv query result" && value && typeof value === "object") {
+    const result = value;
+    evidenceSummary.innerHTML = [
+      summaryCard("Work queue", `${Number(result.workItemsByProjectCount ?? 0)} records`),
+      summaryCard("Ready work", `${Number(result.workItemsByStatusCount ?? 0)} record`),
+      summaryCard("Packet status", `${Number(result.byStatusCount ?? 0)} record`),
+      summaryCard("Source type", `${Number(result.bySourceCount ?? 0)} record`),
+      summaryCard("Time range", `${Number(result.recentCount ?? 0)} record`),
+      summaryCard("Reviewer view", "project-scoped public proof", "accent")
+    ].join("");
+    return;
+  }
+  evidenceSummary.innerHTML = [
+    summaryCard("Primitive", "public proof memory"),
+    summaryCard("Network", "Arkiv Braga"),
+    summaryCard("Entity types", `${receipt.entities.length} planned records`),
+    summaryCard("Verifier", "deterministic CLI", "accent")
+  ].join("");
 }
 function safeJsonStringify(value) {
   return JSON.stringify(
@@ -20288,11 +20369,14 @@ requiredElement("#copyReceipt").addEventListener("click", async () => {
 for (const tab of stepTabs) {
   tab.addEventListener("click", () => showStep(tab.dataset.step ?? "work"));
 }
+storyMode.addEventListener("click", () => setMode("story"));
+evidenceMode.addEventListener("click", () => setMode("evidence"));
 activeWorkTitle.textContent = selectedWorkItem.title;
 activeWorkMeta.textContent = `${selectedWorkItem.source} \xB7 ${selectedWorkItem.status.replaceAll("_", " ")}`;
 renderWorkRows();
 renderEntityList();
 setReceiptView(receipt);
+setMode(currentMode);
 showStep("work");
 /*! Bundled license information:
 

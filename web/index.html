@@ -14,6 +14,10 @@
           <p class="label">Powered by Arkiv</p>
           <h1>ProofForge Lite</h1>
         </div>
+        <div class="demo-mode" aria-label="Demo view mode">
+          <button class="mode-button active" id="storyMode" type="button">Story</button>
+          <button class="mode-button" id="evidenceMode" type="button">Evidence</button>
+        </div>
         <button id="connectWallet" class="button secondary" type="button">
           Connect Braga wallet
         </button>
@@ -28,9 +32,9 @@
             entities that reviewers can query without seeing the workspace.
           </p>
           <div class="proof-metrics" aria-label="ProofForge Lite proof state">
-            <span><small>Theme</small><strong>AI + Privacy</strong></span>
-            <span><small>Entity types</small><strong>4 linked</strong></span>
-            <span><small>Verifier</small><strong>CLI receipt</strong></span>
+            <span><small>Mode</small><strong>AI + Privacy</strong></span>
+            <span><small>Arkiv writes</small><strong>4 entity types</strong></span>
+            <span><small>Demo loop</small><strong>Work to verify</strong></span>
           </div>
           <div class="actions">
             <button id="buildPacket" class="button primary" type="button">
@@ -54,17 +58,17 @@
           <span id="stateDetail">
             No wallet action, no Arkiv query, no Arkiv write, no submission.
           </span>
-          <code id="walletDiagnostic" class="wallet-diagnostic">
+          <code id="walletDiagnostic" class="wallet-diagnostic technical-only">
             wallet=not_connected chain=unknown
           </code>
         </aside>
       </section>
 
       <section class="proof-path" aria-label="Three-minute proof path">
-        <span>Private work</span>
-        <span>Redacted proof</span>
-        <span>Arkiv entities</span>
-        <span>Verifier receipt</span>
+        <span><small>1</small>Private work</span>
+        <span><small>2</small>Redacted proof</span>
+        <span><small>3</small>Arkiv entities</span>
+        <span><small>4</small>Verifier receipt</span>
       </section>
 
       <section class="arkiv-role-grid" aria-label="Why Arkiv is load-bearing">
@@ -207,7 +211,11 @@
             <h3 id="detailsTitle">Verifier receipt</h3>
           </div>
         </div>
-        <pre id="receiptOutput"></pre>
+        <div id="evidenceSummary" class="evidence-summary" aria-live="polite"></div>
+        <details id="technicalEvidence" class="technical-evidence">
+          <summary>Show technical JSON</summary>
+          <pre id="receiptOutput"></pre>
+        </details>
       </section>
     </main>
 
