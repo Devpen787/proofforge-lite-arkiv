@@ -19764,9 +19764,14 @@ async function createBrowserWalletClient() {
   if (!window.ethereum) {
     throw new Error("MetaMask or another EVM wallet is required.");
   }
-  await window.ethereum.request({ method: "eth_requestAccounts" });
+  const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
   await ensureBragaWalletChain(window.ethereum);
+  const account = Array.isArray(accounts) && typeof accounts[0] === "string" ? accounts[0] : "";
+  if (!account) {
+    throw new Error("No wallet account returned after approval.");
+  }
   return createWalletClient({
+    account,
     chain: braga,
     transport: custom(window.ethereum)
   });

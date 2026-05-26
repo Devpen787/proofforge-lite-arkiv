@@ -4,6 +4,7 @@ const root = new URL("..", import.meta.url);
 const html = fs.readFileSync(new URL("web/index.html", root), "utf8");
 const css = fs.readFileSync(new URL("web/styles.css", root), "utf8");
 const bundle = fs.readFileSync(new URL("web/app.bundle.js", root), "utf8");
+const brotliWasm = fs.readFileSync(new URL("web/brotli_wasm_bg.wasm", root));
 const packageJson = JSON.parse(fs.readFileSync(new URL("package.json", root), "utf8"));
 const failures = [];
 
@@ -35,6 +36,19 @@ for (const [relativePath, text] of [
       fail(`${relativePath} contains non-public deploy marker: ${forbidden}`);
     }
   }
+}
+
+if (brotliWasm.length < 1000) {
+  fail("web/brotli_wasm_bg.wasm is unexpectedly small");
+}
+
+if (
+  brotliWasm[0] !== 0x00 ||
+  brotliWasm[1] !== 0x61 ||
+  brotliWasm[2] !== 0x73 ||
+  brotliWasm[3] !== 0x6d
+) {
+  fail("web/brotli_wasm_bg.wasm is not a valid WebAssembly binary");
 }
 
 for (const expected of [
